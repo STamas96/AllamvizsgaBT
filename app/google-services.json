@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "254657412897",
+    "firebase_url": "https://buddieswithyourtravel.firebaseio.com",
+    "project_id": "buddieswithyourtravel",
+    "storage_bucket": "buddieswithyourtravel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254657412897:android:7a4af9cef824cd4b",
+        "android_client_info": {
+          "package_name": "com.example.sutot.buddieswithyourtravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254657412897-8hd8nadkakl2iq7kfennqh9m1ofbkrg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sutot.buddieswithyourtravel",
+            "certificate_hash": "f8c5c56f0f641201361b8f1c93477e4468bdc96c"
+          }
+        },
+        {
+          "client_id": "254657412897-131p1073p5r5tci2goud8p0cegc0ucrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6ywRBHLJWjwwGdq0pq_kIYXP4wNjlTts"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254657412897-131p1073p5r5tci2goud8p0cegc0ucrc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

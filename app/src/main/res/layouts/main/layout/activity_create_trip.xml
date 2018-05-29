@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".Controllers.Main.Fragments.CreateTripActivity">
+
+    <ScrollView
+        android:id="@+id/CreateTrip_ParentScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/CreateTrip_ParentLLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/CreateTrip_Photos"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_weight="4"
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            android:background="@mipmap/ic_launcher_round" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/CreatTrip_TitleLL">
+            <TextView
+                android:id="@+id/CreateTrip_Title"
+                style="@style/MyTextViewStyle"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="25dp"
+                android:layout_weight="1"
+                android:text="Title"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/CreateTrip_Title_Edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:ellipsize="start"
+                android:ems="10"
+                android:hint="Please enter title"
+                android:inputType="textShortMessage"
+                android:textAlignment="center" />
+        </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:id="@+id/CreatTrip_ShortDescriptionLL">
+        <TextView
+            android:id="@+id/CreateTrip_ShortDescription"
+            style="@style/MyTextViewStyle"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:text="Short Description"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/CreateTrip_ShortDescription_Edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:ellipsize="start"
+            android:ems="10"
+            android:hint="Please enter description"
+            android:inputType="textMultiLine"
+            android:textAlignment="center" />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/CreatTrip_StartDateLL">
+            <TextView
+                android:id="@+id/CreateTrip_StartDate_Label"
+                style="@style/MyTextViewStyle"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="Start Date"
+                android:textAlignment="center" />
+
+            <DatePicker android:id="@+id/CreateTrip_StartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:layout_centerHorizontal="true"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/CreatTrip_EndDateLL">
+            <TextView
+                android:id="@+id/CreateTrip_EndDate_Label"
+                style="@style/MyTextViewStyle"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="End Date"
+                android:textAlignment="center" />
+
+            <DatePicker android:id="@+id/CreateTrip_EndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:layout_centerHorizontal="true"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/CreateTrip_AddNewPost"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_weight="3"
+            android:text="Save"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
+            android:typeface="monospace" />
+
+    </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorControlHighlight">#848484</item>
+    </style>
+
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">cursive</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MainScreen_AppName_Part1">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+    <style name="MainScreen_AppName_Part2">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+
+
+</resources>

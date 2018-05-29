@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="com.example.sutot.buddieswithyourtravel.Controllers.Authentification.RegisterActivity">
+
+    <ScrollView
+        android:id="@+id/Register_ParentScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/Register_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/LogIn_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/faster_one"
+                android:text="Register"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="60dp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/Register_Name"
+                style="@style/MyTextViewStyle"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="Name"
+                android:textAlignment="center" />
+
+            <LinearLayout
+                android:id="@+id/Register_LinearLayout_NameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/Register_FirstNameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/LogIn_EmailLabel"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:hint="First name"
+                    android:inputType="textEmailAddress"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/Register_LastNameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/LogIn_EmailLabel"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:hint="Last name"
+                    android:inputType="textEmailAddress"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Register_EmailLabel"
+                style="@style/MyTextViewStyle"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_toStartOf="@+id/LogIn_EmailEditText"
+                android:layout_weight="1"
+                android:text="Email"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/Register_EmailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/LogIn_EmailLabel"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:ellipsize="start"
+                android:ems="10"
+                android:hint="@string/enteremail"
+                android:inputType="textEmailAddress"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/Register_PasswordLabel"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                style="@style/MyTextViewStyle"
+                android:text="Password"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/Register_PasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/LogIn_EmailEditText"
+                android:layout_below="@+id/LogIn_EmailEditText"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/enterpassword"
+                android:inputType="textPassword"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/Register_BirthdayLabel"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="Birthday"
+                android:textAlignment="center"
+                style="@style/MyTextViewStyle"/>
+
+            <DatePicker android:id="@+id/Register_Birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:id="@+id/Register_SignUpButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_weight="3"
+                android:text="Sign up"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+
+            <TextView
+                android:id="@+id/Register_AlreadyHaveAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
+                android:layout_weight="2"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/alreadyhaveanaccount"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView"
+                android:textAlignment="center"
+                android:textColor="#fcfffc"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>
