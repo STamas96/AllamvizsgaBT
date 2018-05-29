@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#000000"
     tools:context=".Controllers.Main.Fragments.CreateTripActivity">
-
     <ScrollView
         android:id="@+id/CreateTrip_ParentScroll"
         android:layout_width="match_parent"
