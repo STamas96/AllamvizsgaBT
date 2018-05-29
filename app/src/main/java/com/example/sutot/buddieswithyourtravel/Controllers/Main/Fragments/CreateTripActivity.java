@@ -6,16 +6,20 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.RegisterActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,7 +43,7 @@ import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.
 
 public class CreateTripActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageButton mAddNewImage;
+    private ImageButton mAddNewImage, mBacktoMain;
     private EditText mTripTitle, mShortDescription;
     private DatePicker mStartDate, mEndDate;
     private Button mAddNewTrip;
@@ -48,13 +52,15 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     private ProgressDialog mProgressDialog;
+    private RelativeLayout mMainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
+
         //keyboard eltuntetese
-        setupUI(findViewById(R.id.CreateTrip_ParentScroll));
+        setupUI(findViewById(R.id.CreateTrip_Main_Relative_Layout));
 
         mAddNewImage = (ImageButton) findViewById(R.id.CreateTrip_Photos);
         mTripTitle = (EditText) findViewById(R.id.CreateTrip_Title_Edit);
@@ -62,12 +68,15 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         mStartDate = (DatePicker) findViewById(R.id.CreateTrip_StartDate);
         mEndDate = (DatePicker) findViewById(R.id.CreateTrip_EndDate);
         mAddNewTrip = (Button) findViewById(R.id.CreateTrip_AddNewPost);
+        mMainLayout = (RelativeLayout) findViewById(R.id.CreateTrip_Main_Relative_Layout);
+        mBacktoMain = (ImageButton) findViewById(R.id.CreateTrip_Back_Button);
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         mAddNewImage.setOnClickListener(this);
         mAddNewTrip.setOnClickListener(this);
+        mBacktoMain.setOnClickListener(this);
 
         mStartDate.setMinDate(System.currentTimeMillis() - 1000);
         mEndDate.setMinDate(System.currentTimeMillis() - 1000);
@@ -86,6 +95,11 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         }
         if (view == mAddNewTrip) {
             addnewPost();
+        }
+        if (view == mBacktoMain) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
