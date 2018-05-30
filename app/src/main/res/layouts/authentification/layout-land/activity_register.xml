@@ -16,7 +16,7 @@
             android:id="@+id/Register_LinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/faster_one"
                 android:text="Register"
                 android:layout_gravity="center"
@@ -80,11 +81,36 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/Register_EmailLabel"
+                android:id="@+id/Register_UserNameLabel"
                 style="@style/MyTextViewStyle"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="20dp"
                 android:layout_toStartOf="@+id/LogIn_EmailEditText"
+                android:layout_weight="1"
+                android:text="Username"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/Register_UsernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/LogIn_UserNameLabel"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:ellipsize="start"
+                android:ems="10"
+                android:maxLength="25"
+                android:hint="@string/enterusername"
+                android:inputType="textEmailAddress"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/Register_EmailLabel"
+                style="@style/MyTextViewStyle"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_toStartOf="@+id/LogIn_UsernameEditText"
                 android:layout_weight="1"
                 android:text="Email"
                 android:textAlignment="center" />
@@ -123,6 +149,7 @@
                 android:inputType="textPassword"
                 android:textAlignment="center" />
 
+
             <TextView
                 android:id="@+id/Register_BirthdayLabel"
                 android:layout_marginTop="10dp"
@@ -155,7 +182,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="50dp"
                 android:layout_weight="2"
                 android:fontFamily="sans-serif-condensed"
                 android:text="@string/alreadyhaveanaccount"

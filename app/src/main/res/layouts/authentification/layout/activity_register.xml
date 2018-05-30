@@ -100,6 +100,7 @@
                 android:layout_weight="1"
                 android:ellipsize="start"
                 android:ems="10"
+                android:maxLength="25"
                 android:hint="@string/enterusername"
                 android:inputType="textEmailAddress"
                 android:textAlignment="center" />

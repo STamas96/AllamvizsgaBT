@@ -110,15 +110,21 @@
                     android:text="Short Description"
                     android:textAlignment="center" />
 
-                <EditText
+                <view xmlns:android="http://schemas.android.com/apk/res/android"
+                    class="com.example.sutot.buddieswithyourtravel.Utilities.Classes.LinedEditText"
                     android:id="@+id/CreateTrip_ShortDescription_Edit"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="5dp"
                     android:layout_marginTop="10dp"
+                    android:lines="5"
                     android:layout_weight="1"
+                    android:scrollbars="vertical"
+                    android:fadingEdge="vertical"
+                    android:capitalize="sentences"
                     android:background="@drawable/rounded_edittext"
+                    android:textCursorDrawable="@drawable/rounded_editext_cursor"
                     android:ellipsize="start"
                     android:ems="10"
                     android:hint="Please enter description"
