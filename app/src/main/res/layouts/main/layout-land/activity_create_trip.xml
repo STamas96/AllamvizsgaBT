@@ -74,6 +74,7 @@
                 <TextView
                     android:id="@+id/CreateTrip_Title"
                     style="@style/MyTextViewStyle"
+                    android:layout_alignParentTop="true"
                     android:layout_marginTop="25dp"
                     android:layout_weight="1"
                     android:text="Title"
@@ -112,15 +113,19 @@
                 <EditText
                     android:id="@+id/CreateTrip_ShortDescription_Edit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:background="@drawable/rounded_edittext"
                     android:ellipsize="start"
                     android:ems="10"
                     android:hint="Please enter description"
                     android:inputType="textMultiLine"
-                    android:textAlignment="center" />
+                    android:maxLength="250"
+                    android:textColor="#000000"
+                    android:textSize="13dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +139,7 @@
                     android:id="@+id/CreateTrip_StartDate_Label"
                     style="@style/MyTextViewStyle"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:text="Start Date"
                     android:textAlignment="center" />
@@ -178,7 +183,7 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginTop="12dp"
                 android:layout_weight="3"
                 android:text="Save"

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.transition.Explode;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Scroller;
 import android.widget.Toast;
 
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
@@ -73,6 +75,11 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        mShortDescription.setMaxLines(5);
+        mShortDescription.setScroller(new Scroller(this));
+        mShortDescription.setVerticalScrollBarEnabled(true);
+        mShortDescription.setMovementMethod(new ScrollingMovementMethod());
 
         mAddNewImage.setOnClickListener(this);
         mAddNewTrip.setOnClickListener(this);

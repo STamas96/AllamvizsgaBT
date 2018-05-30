@@ -75,6 +75,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                 viewHolder.setDescription(model.getShortDescription());
                 viewHolder.setStartDate(model.getStartDate());
                 viewHolder.setEndDate(model.getEndDate());
+                viewHolder.setCreatedTime(model.getmTripCreated());
                 //viewHolder.setImage(getContext(),model.getFilePath());
 
             }
@@ -130,6 +131,14 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = formatter.format(endDate);
             TextView postEndDate = mView.findViewById(R.id.Trip_EndDate_TextView);
+            postEndDate.setText(formattedDate);
+        }
+
+        public void setCreatedTime(Date createTime)
+        {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = formatter.format(createTime);
+            TextView postEndDate = mView.findViewById(R.id.Trip_Uploaded_Time);
             postEndDate.setText(formattedDate);
         }
 
