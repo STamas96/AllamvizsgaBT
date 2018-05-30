@@ -56,8 +56,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="P:\Aktiv projektek\BuddiesWithYourTravel\app\src\main\res\drawable\if_travel management_47413.png" />
-                                      <entry key="outputName" value="ic_arrow_back" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="P:\Aktiv projektek\BuddiesWithYourTravel\app\src\main\res\drawable\if_departure_1454207.png" />
+                                      <entry key="outputName" value="ic_departures" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="000000" />
                                     </map>
