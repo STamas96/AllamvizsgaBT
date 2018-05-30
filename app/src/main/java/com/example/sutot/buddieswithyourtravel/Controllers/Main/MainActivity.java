@@ -26,6 +26,8 @@ import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.HomeFr
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.MyProfileFragment;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.disableShiftMode;
 

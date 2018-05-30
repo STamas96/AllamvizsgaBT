@@ -78,6 +78,7 @@ public class Trips {
     public void setOwnerID(String owner) {this.mOwnerID = owner;}
     public void setTripCreated(Date created) {this.mTripCreated = created;}
     public void setLastTimeModified (Date lmodified) {this.mLastTimeModified = lmodified;}
+    public void setFilePath(String fpath){this.mFilePath=fpath;}
 
     public void setShortDescription(String mShortDescription) {
         this.mShortDescription = mShortDescription;

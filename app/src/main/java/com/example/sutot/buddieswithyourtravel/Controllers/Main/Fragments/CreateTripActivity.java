@@ -123,10 +123,11 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadURL = taskSnapshot.getDownloadUrl();
-                        Trips newPost = new Trips(signature, currUser.getUid(), newTripTitle, downloadURL.toString(),
+                        String signatureTemp = signature + currUser.getUid();
+                        Trips newPost = new Trips(signatureTemp, currUser.getUid(), newTripTitle, downloadURL.toString(),
                                 newTripSDescription, newTripStartDate, newTripEndDate, Calendar.getInstance().getTime(),
                                 Calendar.getInstance().getTime());
-                        databaseReference.child("Trips").child(signature).child(currUser.getUid()).setValue(newPost);
+                        databaseReference.child("Trips").child(signatureTemp).setValue(newPost);
                         mProgressDialog.dismiss();
                         Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
                         onBackPressed();
@@ -140,10 +141,11 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                     }
                 });
             } else {
-                Trips newPost = new Trips(signature, currUser.getUid(), newTripTitle, null,
+                String signatureTemp = signature + currUser.getUid();
+                Trips newPost = new Trips(signatureTemp, currUser.getUid(), newTripTitle, null,
                         newTripSDescription, newTripStartDate, newTripEndDate, Calendar.getInstance().getTime(),
                         Calendar.getInstance().getTime());
-                databaseReference.child("Trips").child(signature).child(currUser.getUid()).setValue(newPost);
+                databaseReference.child("Trips").child(signatureTemp).setValue(newPost);
                 mProgressDialog.dismiss();
                 Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
                 onBackPressed();
