@@ -98,7 +98,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                 viewHolder.setStartDate(model.getStartDate());
                 viewHolder.setEndDate(model.getEndDate());
                 viewHolder.setCreatedTime(model.getmTripCreated());
-                //viewHolder.setImage(getContext(),model.getFilePath());
+                viewHolder.setImage(getContext(),model.getFilePath());
 
             }
         };
@@ -158,7 +158,6 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         }
 
         public void setImage(Context currentContext, String filepath) {
-            if (filepath == null) {
                 ImageView picView = (ImageView) itemView.findViewById(R.id.Trip_Image);
                 StorageReference pictureref;
                 if (filepath == null) {
@@ -167,9 +166,9 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                     pictureref = FirebaseStorage.getInstance().getReferenceFromUrl(filepath);
                 }
                 Glide.with(currentContext)
+                        .using(new FirebaseImageLoader())
                         .load(pictureref)
                         .into(picView);
-            }
         }
     }
 

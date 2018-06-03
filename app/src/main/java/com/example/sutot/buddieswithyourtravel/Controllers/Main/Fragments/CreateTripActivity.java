@@ -97,7 +97,6 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         if (view == mAddNewImage) {
-            Toast.makeText(this, "asdasdasda", Toast.LENGTH_SHORT).show();
             addnewpostimage();
         }
         if (view == mAddNewTrip) {
