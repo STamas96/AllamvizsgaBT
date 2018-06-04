@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+//kirandulas osztaly
 public class Trips {
 
     private String mID;
@@ -79,11 +80,9 @@ public class Trips {
     public void setTripCreated(Date created) {this.mTripCreated = created;}
     public void setLastTimeModified (Date lmodified) {this.mLastTimeModified = lmodified;}
     public void setFilePath(String fpath){this.mFilePath=fpath;}
+    public void setShortDescription(String mShortDescription) {this.mShortDescription = mShortDescription;}
 
-    public void setShortDescription(String mShortDescription) {
-        this.mShortDescription = mShortDescription;
-    }
-
+    //ha valaki mar nem erdeklodik
     public void removeInterested(String userID)
     {
         Iterator<String> iter = getInteresteds().iterator();
@@ -95,6 +94,7 @@ public class Trips {
         }
     }
 
+    //ha valaki erdeklodik
     public void addInterested(String userID)
     {
         if (!userID.isEmpty()){

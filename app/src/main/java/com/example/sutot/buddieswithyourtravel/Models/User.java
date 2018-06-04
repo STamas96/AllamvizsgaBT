@@ -11,6 +11,7 @@ public class User {
     private String mLastName;
     private String mEmail;
     private String mPhoneNumber;
+    private String mProfilePic;
     private List<String> mLanguages;
     private List<String> mFriends;
     private Date mBirthday;
@@ -22,6 +23,20 @@ public class User {
         this.mLastName = lname;
         this.mEmail = email;
         this.mBirthday = mBirthday;
+        this.mProfilePic = null;
+        this.mPhoneNumber = null;
+        this.mLanguages = null;
+        this.mFriends = null;
+    }
+
+    public User(User pm)
+    {
+        this.mUserName = pm.getUserName();
+        this.mFirstName = pm.getFirstName();
+        this.mLastName = pm.getLastName();
+        this.mEmail = pm.getEmail();
+        this.mProfilePic = pm.getProfilePicture();
+        this.mBirthday = pm.getBirthday();
         this.mPhoneNumber = null;
         this.mLanguages = null;
         this.mFriends = null;
@@ -39,7 +54,7 @@ public class User {
     public String getLastName(){
         return mLastName;
     }
-    public String getAddress()
+    public String getEmail()
     {
         return mEmail;
     }
@@ -50,10 +65,13 @@ public class User {
     public List<String> getLanguages() {return mLanguages;}
     public List<String> getFriends() { return mFriends; }
     public String getPhoneNumber() { return mPhoneNumber; }
+    public String getProfilePicture() {return mProfilePic;}
 
     public void setFirstName(String fName) { this.mFirstName = fName;}
-    public void setLasttName(String lName) { this.mLastName = lName;}
-    public void setAddress(String address) { this.mEmail = address;}
+    public void setLastName(String lName) { this.mLastName = lName;}
+    public void setEmail(String address) { this.mEmail = address;}
     public void setPhoneNumber(Date mBirthday) { this.mBirthday = mBirthday;}
     public void setUserName (String userName) {this.mUserName = userName;}
+    public void setBirthday (Date birthday) {this.mBirthday = birthday;}
+    public void setProfilePicture(String pmProfile) {this.mProfilePic = pmProfile;}
 }

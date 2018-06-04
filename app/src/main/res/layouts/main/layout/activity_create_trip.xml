@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".Controllers.Main.Fragments.CreateTripActivity"
+    tools:context=".Controllers.Main.CreateTripActivity"
     android:id="@+id/CreateTrip_Main_Relative_Layout">
 
     <LinearLayout

@@ -29,8 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -103,7 +101,6 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             }
         };
         mMainRecyclerView.setAdapter(firebaseRecyclerAdapter);
-
     }
 
     public static class TripViewHolder extends RecyclerView.ViewHolder {
@@ -158,18 +155,25 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         }
 
         public void setImage(Context currentContext, String filepath) {
-                ImageView picView = (ImageView) itemView.findViewById(R.id.Trip_Image);
-                StorageReference pictureref;
-                if (filepath == null) {
-                    pictureref = FirebaseStorage.getInstance().getReference().child("Trips/").child("images/").child("No_Cover_Image.jpg");
-                } else {
-                    pictureref = FirebaseStorage.getInstance().getReferenceFromUrl(filepath);
-                }
-                Glide.with(currentContext)
-                        .using(new FirebaseImageLoader())
-                        .load(pictureref)
-                        .into(picView);
+            ImageView picView = (ImageView) itemView.findViewById(R.id.Trip_Image);
+            StorageReference pictureref;
+            if (filepath == null) {
+                pictureref = FirebaseStorage.getInstance().getReference().child("Trips/").child("images/").child("No_Cover_Image.jpg");
+            } else {
+                pictureref = FirebaseStorage.getInstance().getReferenceFromUrl(filepath);
+            }
+            Glide.with(currentContext)
+                    .using(new FirebaseImageLoader())
+                    .load(pictureref)
+                    .into(picView);
         }
     }
+}/*
 
-}
+
+
+    }
+
+    */
+
+

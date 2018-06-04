@@ -26,6 +26,11 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">13dp</item>
     </style>
-
+    <style name="MainScreen_AppName_Part3">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25dp</item>
+    </style>
 
 </resources>

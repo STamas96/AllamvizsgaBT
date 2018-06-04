@@ -32,7 +32,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Controllers.Main.Fragments.CreateTripActivity"></activity>
+        <activity android:name=".Controllers.Main.CreateTripActivity"></activity>
     </application>
 
 </manifest>

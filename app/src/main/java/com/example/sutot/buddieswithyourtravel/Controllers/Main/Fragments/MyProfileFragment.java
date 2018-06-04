@@ -1,19 +1,38 @@
 package com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyProfileFragment extends android.support.v4.app.Fragment {
+public class MyProfileFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
+    private CircleImageView mProfilePic;
+    private TextView mUserFullName;
+    private static final int GALLERY_REQUEST = 1;
+    private MainActivity mMainActivity;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -25,6 +44,39 @@ public class MyProfileFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        mMainActivity = (MainActivity) getActivity();
+        mProfilePic = (CircleImageView) mMainActivity.findViewById(R.id.MyProfile_Profile_Image);
+        mUserFullName = (TextView) mMainActivity.findViewById(R.id.MyProfile_User_Full_Name);
+
+        mUserFullName.setText(mMainActivity.currUser.getFirstName() + " " + mMainActivity.currUser.getLastName());
+        mMainActivity.mTopRight.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        if (view == mMainActivity.mTopRight) {
+            LogOut();
+        }
+    }
+
+    private void LogOut() {
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences sharedPref = mMainActivity.getSharedPreferences("LogInSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("alreadyLoggedIn", "loggedout");
+        editor.commit();
+        Intent loginscreen = new Intent(getContext(), LogInActivity.class);
+        loginscreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginscreen);
+        mMainActivity.finish();
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments;
+package com.example.sutot.buddieswithyourtravel.Controllers.Main;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,32 +7,23 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.transition.Explode;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.Toast;
 
-import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
-import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.RegisterActivity;
-import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
