@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:id="@+id/EditProfile_Relative_Main"
+    tools:context=".Controllers.Main.EditProfileActivity">
+
+    <LinearLayout
+        android:id="@+id/EditProfile_Top_NavBar_LLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF">
+
+        <ImageButton
+            android:id="@+id/EditProfile_Back_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="#000000" />
+
+        <TextView
+            android:id="@+id/EditProfile_Title_TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="5"
+            android:textSize="15dp"
+            android:background="#FFFFFF"
+            android:text="Edit profile"
+            android:textColor="#000000"
+            android:tint="#000000" />
+
+        <ImageButton
+            android:id="@+id/EditProfile_Save_Changes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_save_changes"
+            android:tint="#000000" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/EditProfile_ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:id="@+id/EditProfile_Parent_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/EditProfile_User_Photo"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_profile_pic"
+                app:civ_border_color="#000000"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/EditProfile_Change_Profile_Picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Change photo"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/EditProfile_Name_Label"
+                style="@style/MyTextViewStyle"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="Name"
+                android:textAlignment="center" />
+
+            <LinearLayout
+                android:id="@+id/EditProfile_Fullname_LLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/EditProfile_FirstNameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/LogIn_EmailLabel"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:hint="First name"
+                    android:inputType="textEmailAddress"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/EditProfile_LastNameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/LogIn_EmailLabel"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:hint="Last name"
+                    android:inputType="textEmailAddress"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/EditProfile_Username_LLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/EditProfile_Username_Label"
+                    style="@style/MyTextViewStyle"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1"
+                    android:text="Username"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/EditProfile_Username_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:hint="Please enter your username"
+                    android:inputType="textShortMessage"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/EditProfile_Email_LLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/EditProfile_Email_Label"
+                    style="@style/MyTextViewStyle"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1"
+                    android:text="Email"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/EditProfile_Email_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:hint="Please enter your email"
+                    android:inputType="textShortMessage"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/EditProfile_Short_Description_LLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/EditProfile_ShortDescription_Label"
+                    style="@style/MyTextViewStyle"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Short Description"
+                    android:textAlignment="center" />
+
+                <view xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/EditProfile_ShortDescription_Edit"
+                    class="com.example.sutot.buddieswithyourtravel.Utilities.Classes.LinedEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_edittext"
+                    android:capitalize="sentences"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:fadingEdge="vertical"
+                    android:hint="Please enter description"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:maxLength="250"
+                    android:scrollbars="vertical"
+                    android:textColor="#000000"
+                    android:textCursorDrawable="@drawable/rounded_editext_cursor"
+                    android:textSize="13dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

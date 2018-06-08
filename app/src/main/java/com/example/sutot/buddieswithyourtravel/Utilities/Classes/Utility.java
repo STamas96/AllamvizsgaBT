@@ -64,20 +64,27 @@ public class Utility {
 
     }
 
+    //ellenorizzuk az aktualis internet kapcsolatot
     public static boolean isConnected(Context context) {
 
+        //az aktualis kapcsolatrol lekerjuk az adatokat
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo = connectivityManager.getActiveNetworkInfo();
 
+        //ha ez mar letezik vagy folyamatban van, megnezzuk hogy ez wifi vagy mobil internet
         if (netinfo != null && netinfo.isConnectedOrConnecting()) {
             android.net.NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             android.net.NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
+            //ha valamelyik a ketto kozul igaz, akkor igazat teritunk vissza, azaz van internet kapcsolat maskepp nincs
             if((mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting())) return true;
             else return false;
-        } else
+        } //ha nem letezik internet kapcsolat
+        else
             return false;
     }
+
+    //szolunk a felhasznalonak hogy nincs internet es szuksege van ezekre
     public static AlertDialog.Builder buildDialogNeedToHaveMDorWiFi(Context context) {
 
         final AlertDialog.Builder Builder = new AlertDialog.Builder(context);
@@ -91,12 +98,10 @@ public class Utility {
                     }
                 })
                 .show();
-        AlertDialog alert = Builder.create();
-        alert.show();
         return Builder;
     }
 
-    //TEMPORALIS MEGOLDAS
+    //fuggveny mely ellenorzi, ha a jelszo nem tul egyszeru
     public static boolean validatePassword(String password){
         String PASSWORD_PATTERN =
                 "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%?.]).{6,20})";
@@ -105,6 +110,7 @@ public class Utility {
         return matcher.matches();
     }
 
+    //fuggveny mely ellenorzi ha a felhasznalo nem tul fiatal
     public static boolean validateBirthday(DatePicker view) {
         Calendar userAge = new GregorianCalendar(view.getYear(),view.getMonth(),view.getDayOfMonth());
         Calendar minAdultAge = new GregorianCalendar();
@@ -115,11 +121,13 @@ public class Utility {
         return true;
     }
 
+    //fuggveny mely ellenorzi, ha a felhasznalonev megfelelo
     public static boolean validateUsername(String username)
     {
         return (username != null) && username.matches("[A-Za-z0-9_]+");
     }
 
+    //fuggveny mely ellenorzi, ha a parameterkent kuldott adat megfelelo karakterekbol all
     public static boolean validateData(String data){
         String PASSWORD_PATTERN =
                 "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,}$";
@@ -128,6 +136,7 @@ public class Utility {
         return matcher.matches();
     }
 
+    //ellenorizzuk ha az email cim valos
     public final static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }

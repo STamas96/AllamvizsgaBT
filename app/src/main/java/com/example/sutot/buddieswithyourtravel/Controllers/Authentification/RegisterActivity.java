@@ -16,6 +16,7 @@ import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.User;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -34,15 +35,15 @@ import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //modosithato fieldek
+    //az EditTextek deklaralasa
     private EditText mEditFirstName,mEditLastName,mEditEmail,mEditPassword,mEditUserName;
-    //ha mar van felhasznalonk
+    //a letezo felhasznalo opciora letrehozott szoveg deklaralasa
     private TextView mExistingAccount;
-    //belepo gombok
+    //belepo gomb deklaralasa
     private Button mSignUp;
-    //osszekottetes a firebase auth sdk-val
+    //ebbe a valtozoba fogjuk tarolni az autentifikalashoz szukseges firebase objektumot
     private FirebaseAuth mFirebaseAuth;
-    //betoltesnel hasznalat dialog
+    //betoltesnel hasznalat dialogus
     private ProgressDialog mSignUpPDialog;
     //felhasznalo szuletesnapjanak a bevitele
     private DatePicker mUserBirthday;
@@ -56,11 +57,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //keyboard eltuntetese
         setupUI(findViewById(R.id.Register_ParentScrollView));
 
-        //firebase autentifikaciojaraol letrehozunk egy peldat es az adatbazis refereniat definialjuk
+        //firebase autentifikaciojarol es adatbazisunkrol letrehozunk egy-egy peldat, illetve referenciat
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        //csatolasok
+        //csatoljuk a program kod reszunket a layoutban definialt itemekkel
         mEditFirstName = (EditText) findViewById(R.id.Register_FirstNameEdit);
         mEditLastName = (EditText) findViewById(R.id.Register_LastNameEdit);
         mEditEmail = (EditText) findViewById(R.id.Register_EmailEditText);
@@ -76,15 +77,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void onClick(View view) {
-        //uj felhasznalos gomb esete
+        /*ha mar van felhasznalonk es beszeretnenk jelentkezni akkor visszalepunk a bejelentkezo ablakba, illetve toroljuk az
+        acitivity stacket, hogy ne tudjunk visszalepni a back gombbal*/
         if ( view == mExistingAccount)
         {
-            //ha regisztralni akarunk atterunk erre az activityre es kiurtijuk a stacket
             Intent intent = new Intent(this, LogInActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
 
+        //ha regisztralni szeretnenk, kiolvassuk a mezokbol az adatokat, validaljuk ezeket majd ha minden jo megprobalunk belepni
         if ( view == mSignUp)
         {
             //kiolvassuk az elemeket
@@ -94,27 +96,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             final String newUserPassword = mEditPassword.getText().toString().trim();
             final String newUserName = mEditUserName.getText().toString().trim();
 
-            //validaljuk oket - TEMPORALIS!!!!!!!!
+            //validaljuk oket - 2DO
             if (validEntries(newUserFirstName,newUserLastName,newUserEmail,newUserPassword,newUserName))
             {
-                //probalunk regisztralni
+                //betolto ablak deklaralasa es inicializalasa, majd regisztralas
                 mSignUpPDialog = new ProgressDialog(RegisterActivity.this);
                 setupPDialog(mSignUpPDialog,"Loading...","Logging in");
                 signUpFirebase(mSignUpPDialog,newUserName,newUserFirstName,newUserLastName,newUserEmail,newUserPassword);
             }
             else
             {
+                //ha valamelyik adat nem felel meg a kriteriumoknak akkor szolunk a felhasznalonak
                 Toast.makeText(RegisterActivity.this,"Registered failed!",Toast.LENGTH_SHORT).show();
 
             }
         }
     }
 
+    //belepes
     private void signUpFirebase(final ProgressDialog mSignUpPDialog,
             final String newUserUsername,final String newUserFirstName, final String newUserLastName,final String newUserEmail,String newUserPassword)
     {
         mFirebaseAuth.createUserWithEmailAndPassword(newUserEmail,newUserPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    //ha sikeresen beleptunk akkor, megprobalunk regisztralni a sajat adatbazisunkba is, majd belepni az applikacioba
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
@@ -124,23 +129,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Toast.makeText(RegisterActivity.this,"Registered succesfully!",Toast.LENGTH_SHORT).show();
                             finish();
                         }else{
+                            //ha nem sikerult belepni akkor megnezzuk az okat
                             FirebaseException e = (FirebaseException)task.getException();
+                            Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                             mSignUpPDialog.dismiss();
                         }
                     }
                 });
     }
 
+    //regisztralas sajat adatbazisba
     private void signUpOwnDatabase(String newUsername, String newUserFirstName,String newUserLastName,String newUserEmail)
     {
 
         try{
-            User newUser = new User(newUsername,newUserFirstName,newUserLastName,newUserEmail,getDateFromDatePicker(mUserBirthday));
-            mDatabaseReference.child("Users").child(mFirebaseAuth.getCurrentUser().getUid()).setValue(newUser);
+            //letrehozzuk az objektumot, majd beszurjuk a tablaba
+            User newUser = new User(newUsername,newUserFirstName,newUserLastName,newUserEmail,getDateFromDatePicker(mUserBirthday),null,null);
+            mDatabaseReference.child("Users").child(mFirebaseAuth.getCurrentUser().getUid()).setValue(newUser).addOnFailureListener(new OnFailureListener() {
+                @Override
+                //ha nem sikerult beszurni az adatbazisba az uj embert
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(RegisterActivity.this,"Registration failed with error: " + e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
         }
+        //ha futas beli hibat kaptunk
         catch(RuntimeException e)
         {
-            Toast.makeText(this.getApplicationContext(),"Registration failed with error: " + e,Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getApplicationContext(),"Registration failed with error: " + e.getMessage(),Toast.LENGTH_LONG).show();
         }
 
 
@@ -180,7 +196,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                         else
                         {
-                            Toast.makeText(this.getApplicationContext(),"You are too old !",Toast.LENGTH_LONG).show();
+                            Toast.makeText(this.getApplicationContext(),"You are too young !",Toast.LENGTH_LONG).show();
                             return false;
                         }
                     }

@@ -9,20 +9,16 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.EditProfileActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.R;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +29,7 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
     private TextView mUserFullName;
     private static final int GALLERY_REQUEST = 1;
     private MainActivity mMainActivity;
+    private Button mEditProfile;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -52,8 +49,11 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
         mMainActivity = (MainActivity) getActivity();
         mProfilePic = (CircleImageView) mMainActivity.findViewById(R.id.MyProfile_Profile_Image);
         mUserFullName = (TextView) mMainActivity.findViewById(R.id.MyProfile_User_Full_Name);
+        mEditProfile = (Button) mMainActivity.findViewById(R.id.MyPRofile_Edit_Profile_Button);
 
+        mMainActivity.currUser = mMainActivity.setCurrentUser();
         mUserFullName.setText(mMainActivity.currUser.getFirstName() + " " + mMainActivity.currUser.getLastName());
+        mEditProfile.setOnClickListener(this);
         mMainActivity.mTopRight.setOnClickListener(this);
 
     }
@@ -63,6 +63,10 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
     {
         if (view == mMainActivity.mTopRight) {
             LogOut();
+        }
+        if (view == mEditProfile)
+        {
+            startActivity(new Intent(getContext(), EditProfileActivity.class));
         }
     }
 

@@ -36,15 +36,24 @@ import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.
 
 public class CreateTripActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //felso lec gombok
     private ImageButton mAddNewImage, mBacktoMain;
+    //modosithato szovegreszek
     private EditText mTripTitle, mShortDescription;
+    //datumok
     private DatePicker mStartDate, mEndDate;
+    //gomb mely altal letrehozzuk az uj objektumot
     private Button mAddNewTrip;
+    //a kep feltoltesere hasznalt uri
     private Uri pictureUri = null;
+    //action id-ja
     private static final int GALLERY_REQUEST = 1;
+    //adatbazis referenciak
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
+    //betolto dialogus
     private ProgressDialog mProgressDialog;
+    //fo relative layout
     private RelativeLayout mMainLayout;
 
     @Override
@@ -55,6 +64,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         //keyboard eltuntetese
         setupUI(findViewById(R.id.CreateTrip_Main_Relative_Layout));
 
+        //layout itemjeinek a csatolasai
         mAddNewImage = (ImageButton) findViewById(R.id.CreateTrip_Photos);
         mTripTitle = (EditText) findViewById(R.id.CreateTrip_Title_Edit);
         mShortDescription = (EditText) findViewById(R.id.CreateTrip_ShortDescription_Edit);
@@ -64,18 +74,22 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         mMainLayout = (RelativeLayout) findViewById(R.id.CreateTrip_Main_Relative_Layout);
         mBacktoMain = (ImageButton) findViewById(R.id.CreateTrip_Back_Button);
 
+        //referenciak letrehozasa
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        //leiras beallitassa, sorok szama, scrollozhato legyen
         mShortDescription.setMaxLines(5);
         mShortDescription.setScroller(new Scroller(this));
         mShortDescription.setVerticalScrollBarEnabled(true);
         mShortDescription.setMovementMethod(new ScrollingMovementMethod());
 
+        //listenerek csatolasa, erzekeljek a clicket
         mAddNewImage.setOnClickListener(this);
         mAddNewTrip.setOnClickListener(this);
         mBacktoMain.setOnClickListener(this);
 
+        //start es end date beallitasa
         mStartDate.setMinDate(System.currentTimeMillis() - 1000);
         mEndDate.setMinDate(System.currentTimeMillis() - 1000);
         Calendar c = Calendar.getInstance();
@@ -93,6 +107,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         if (view == mAddNewTrip) {
             addnewPost();
         }
+        //ha visszakarunk lepni a fo activitybe, uritjuk a vermet is
         if (view == mBacktoMain) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -100,8 +115,10 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    //uj kirandulas letrehozasa
     private void addnewPost() {
 
+        //adatokat kiolvasasa es dialogus inicializalasa
         mProgressDialog = new ProgressDialog(CreateTripActivity.this);
         setupPDialog(mProgressDialog, "Loading...", "Adding new post");
         final String newTripTitle = mTripTitle.getText().toString().trim();
@@ -109,25 +126,51 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         final Date newTripStartDate = getDateFromDatePicker(mStartDate);
         final Date newTripEndDate = getDateFromDatePicker(mEndDate);
         final Date createdDate = Calendar.getInstance().getTime();
+
+        //ha a cim es a leiras sem ures
         if (!newTripTitle.isEmpty() && (!newTripSDescription.isEmpty())) {
+
+            //kiolvassuk a jelenlegi felhasznalot a firebase adatbazisabol
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             final FirebaseUser currUser = firebaseAuth.getCurrentUser();
-            ;
+
+            //keszitunk egy signaturat mely altal fogjuk megkulonboztetni a kirandulasokat
             final String signature = Objects.toString(System.currentTimeMillis(), null);
+
+            //beallitjuk hova mentsuk el a kepet
             StorageReference filepath = storageReference.child("Trips/").child(signature).child("images/").child(currUser.getUid());
+
+            //ha a kep nem ures, azaz raktunk valami kepet
             if (pictureUri != null) {
+                //megprobaljuk felrakni a kepet
                 filepath.putFile(pictureUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        //ha sikerult felrakni a gepet, akkor kerunk egy urit amely altal elerjuk
                         Uri downloadURL = taskSnapshot.getDownloadUrl();
+
+                        //letrehozzuk a signaturat amely az idot tarolja nanosec-ba es a szerzo userID-jat
                         String signatureTemp = signature + currUser.getUid();
+                        //letrehozzuk a kirandulas objektumot a megfelelo parameterekkel, majd megprobaljuk feltolteni
+                        //utvonal -> Kirandulas reszleg / szignatura
                         Trips newPost = new Trips(signatureTemp, currUser.getUid(), newTripTitle, downloadURL.toString(),
                                 newTripSDescription, newTripStartDate, newTripEndDate, Calendar.getInstance().getTime(),
                                 Calendar.getInstance().getTime());
-                        databaseReference.child("Trips").child(signatureTemp).setValue(newPost);
-                        mProgressDialog.dismiss();
-                        Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
-                        onBackPressed();
+                        databaseReference.child("Trips").child(signatureTemp).setValue(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                mProgressDialog.dismiss();
+                                Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
+                                onBackPressed();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                mProgressDialog.dismiss();
+                                Toast.makeText(getBaseContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                                onBackPressed();
+                            }
+                        });//ha nem sikerult feltolteni a kepet akkor szolunk hogy mi volt a baj
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -136,29 +179,44 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                         Toast.makeText(getBaseContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
                         onBackPressed();
                     }
-                });
+                });/*ha a felhasznalo nem szeretne felrakni kepet a kirandulasrol, ugyanugy jarunk el mint fentebb csak kep resze
+                ures lesz*/
             } else {
                 String signatureTemp = signature + currUser.getUid();
                 Trips newPost = new Trips(signatureTemp, currUser.getUid(), newTripTitle, null,
                         newTripSDescription, newTripStartDate, newTripEndDate, Calendar.getInstance().getTime(),
                         Calendar.getInstance().getTime());
-                databaseReference.child("Trips").child(signatureTemp).setValue(newPost);
-                mProgressDialog.dismiss();
-                Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
-                onBackPressed();
+                databaseReference.child("Trips").child(signatureTemp).setValue(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
+                        onBackPressed();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(getBaseContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        onBackPressed();
+                    }
+                });
             }
-        } else {
+        } else//ha valamelyik resze ures a cim es a leiras kozul akkor szolunk a usernek
+            {
             Toast.makeText(this, "You must complete all of the fields!", Toast.LENGTH_SHORT).show();
             mProgressDialog.hide();
         }
     }
 
+    //uj kep feltoltese
     private void addnewpostimage() {
         Intent galleryintent = new Intent(Intent.ACTION_PICK);
         galleryintent.setType("image/*");
         startActivityForResult(galleryintent, GALLERY_REQUEST);
     }
 
+    //a visszakapott adatot lementjuk es beallitjuk hogy jelenjen is meg a UI-n
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GALLERY_REQUEST) {
@@ -169,6 +227,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    //datum kiolvasasa a datepickerbol
     public static Date getDateFromDatePicker(DatePicker datePicker) {
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
@@ -180,6 +239,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         return calendar.getTime();
     }
 
+    //fuggveny mely altal inicializaljuk a dialogust
     private void setupPDialog(ProgressDialog progressDialog, String title, String message) {
         progressDialog.setTitle(title);
         progressDialog.setMessage(message);

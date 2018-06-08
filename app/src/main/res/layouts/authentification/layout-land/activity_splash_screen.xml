@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen_background"
     tools:context="com.example.sutot.buddieswithyourtravel.Controllers.Authentification.SplashScreen">
-    <!-- background:https://pixabay.com/en/rocket-science-spaceship-space-3122690/ -->
+
+    <!-- egy ures layout amelyen csak a background jelenik meg-->
 
 </android.support.constraint.ConstraintLayout>

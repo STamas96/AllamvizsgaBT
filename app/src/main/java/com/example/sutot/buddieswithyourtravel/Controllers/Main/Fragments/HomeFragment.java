@@ -55,12 +55,15 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        //a foactivityhez hozzaferunk
         MainActivity mMainActivity = (MainActivity) getActivity();
 
+        //beallitjuk a recyclerviewt
         mMainRecyclerView = (RecyclerView) view.findViewById(R.id.HomeFragment_Main_RecyclerView);
         mMainRecyclerView.setHasFixedSize(true);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        //a kirandulas tablat syncronizaljuk
         refTrips = FirebaseDatabase.getInstance().getReference();
         refTrips.child("Trips").keepSynced(true);
 
@@ -71,10 +74,13 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         super.onStart();
         FirebaseRecyclerAdapter<Trips, TripViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Trips, TripViewHolder>
                 (Trips.class, R.layout.card_view_trips, TripViewHolder.class, refTrips.child("Trips")) {
+            //feltoltjuk a Recycler view-t
             @Override
             protected void populateViewHolder(final TripViewHolder viewHolder, Trips model, int position) {
+                //beallitjuk a cimet es az erdeklodoinek a szamat
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setInteresteds();
+                //beallitjuk a szerzo nevet
                 refTrips.child("Users").child(model.getOwnerID()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -91,7 +97,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                         Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
-
+                //beallitjuk a tobbi adatot is
                 viewHolder.setDescription(model.getShortDescription());
                 viewHolder.setStartDate(model.getStartDate());
                 viewHolder.setEndDate(model.getEndDate());
@@ -100,6 +106,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
 
             }
         };
+        //racsatoljuk az adaptert a recycler viewre
         mMainRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
@@ -158,14 +165,15 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             ImageView picView = (ImageView) itemView.findViewById(R.id.Trip_Image);
             StorageReference pictureref;
             if (filepath == null) {
-                pictureref = FirebaseStorage.getInstance().getReference().child("Trips/").child("images/").child("No_Cover_Image.jpg");
+                picView.setImageResource(R.drawable.no_profile_pic);
             } else {
                 pictureref = FirebaseStorage.getInstance().getReferenceFromUrl(filepath);
+                Glide.with(currentContext)
+                        .using(new FirebaseImageLoader())
+                        .load(pictureref)
+                        .into(picView);
             }
-            Glide.with(currentContext)
-                    .using(new FirebaseImageLoader())
-                    .load(pictureref)
-                    .into(picView);
+
         }
     }
 }/*

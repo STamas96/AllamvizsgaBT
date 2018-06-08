@@ -27,7 +27,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/faster_one"
-                android:text="Register"
+                android:text="@string/register"
                 android:layout_gravity="center"
                 android:textColor="#ffffff"
                 android:textSize="60dp"
@@ -40,7 +40,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:text="Name"
+                android:text="@string/name"
                 android:textAlignment="center" />
 
             <LinearLayout
@@ -60,7 +60,7 @@
                     android:layout_weight="1"
                     android:ellipsize="start"
                     android:ems="10"
-                    android:hint="First name"
+                    android:hint="@string/firstname"
                     android:inputType="textEmailAddress"
                     android:textAlignment="center" />
 
@@ -74,7 +74,7 @@
                     android:layout_weight="1"
                     android:ellipsize="start"
                     android:ems="10"
-                    android:hint="Last name"
+                    android:hint="@string/lastname"
                     android:inputType="textEmailAddress"
                     android:textAlignment="center" />
 
@@ -87,7 +87,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toStartOf="@+id/LogIn_EmailEditText"
                 android:layout_weight="1"
-                android:text="Username"
+                android:text="@string/username"
                 android:textAlignment="center" />
 
             <EditText
@@ -112,7 +112,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toStartOf="@+id/LogIn_UsernameEditText"
                 android:layout_weight="1"
-                android:text="Email"
+                android:text="@string/email"
                 android:textAlignment="center" />
 
             <EditText
@@ -134,7 +134,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 style="@style/MyTextViewStyle"
-                android:text="Password"
+                android:text="@string/password"
                 android:textAlignment="center" />
 
             <EditText
@@ -154,7 +154,7 @@
                 android:id="@+id/Register_BirthdayLabel"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Birthday"
+                android:text="@string/birthday"
                 android:textAlignment="center"
                 style="@style/MyTextViewStyle"/>
 
@@ -171,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_weight="3"
-                android:text="Sign up"
+                android:text="@string/signup"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"

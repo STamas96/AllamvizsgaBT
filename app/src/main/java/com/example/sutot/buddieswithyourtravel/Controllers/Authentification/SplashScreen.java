@@ -1,6 +1,8 @@
 package com.example.sutot.buddieswithyourtravel.Controllers.Authentification;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -36,30 +38,47 @@ public class SplashScreen extends AppCompatActivity {
         //Beallitja a kepernyot full screenbe
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //Megjeleniti a neki megfelelo layoutot
         setContentView(R.layout.activity_splash_screen);
+        //A firebase autentifikalis objektumot peldanyositjuk
         mFirebaseAuth = FirebaseAuth.getInstance();
-        //Ha mar bevagyunk jelentkezve akkor a fo ablakba ugorjon at, hanem akkor a bejelentkezesi ablakba
+        //Ellenorizzuk az aktualis allapotot, melyik legyen a kovetkezo ablak
         AlreadyLoggedIn();
     }
 
-    //Ellenorizzuk milyen allapotba a user, bevan-e vagy nincs jelentkezve
+    //Ellenorizzuk az aktualis allapotot, melyik legyen a kovetkezo ablak
     private void AlreadyLoggedIn() {
+        //megnezzuk a cache filekban hogy bevan lepve e mar a felhasznalo vagy nincs ( offline mode )
         SharedPreferences sharedPref = getSharedPreferences("LogInSettings", Context.MODE_PRIVATE);
         String alreadyloggedin = sharedPref.getString("alreadyLoggedIn", "Unknown");
-        if (!isConnected(SplashScreen.this)) {
-            //szolunk a felhasznalonak hogy nincs internet
-            buildDialogNeedToHaveMDorWiFi(SplashScreen.this);
-            new Handler().postDelayed(new Runnable() {
 
-                public void run() {
-                    startActivity(new Intent(SplashScreen.this, LogInActivity.class));
-                    finish();
-                }
-            }, mSecondsDelayed * 1000);
-        } else {
+        /*ellenorizzuk hogy ha van internet kapcsolatunk, maskepp kirrjuk hogy szukseg lesz erre majd a bejelentkezo kepernyohoz
+        lepunk ha a felhasznalo elolvasta*/
+        if (!isConnected(SplashScreen.this)) {
+            AlertDialog.Builder Builder = new AlertDialog.Builder(this);
+            Builder.setMessage("You need to have Mobile Data or wifi to access this. Press ok to Exit")
+                    .setCancelable(false)
+                    .setTitle("No Internet Connection")
+                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new Handler().postDelayed(new Runnable() {
+
+                                public void run() {
+                                    startActivity(new Intent(SplashScreen.this, LogInActivity.class));
+                                    finish();
+                                }
+                            }, mSecondsDelayed * 1000);
+                        }
+                    })
+                    .show();
+
+        } // ha van internetunk is akkor megnezzuk hogy ha mar bevan jelentkezve a felhasznalo
+        else {
             if ((mFirebaseAuth.getCurrentUser() != null) || (alreadyloggedin.equals("True"))) {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
                 try {
+                    //ha sikerul hozzaferni az aktualis felhasznalo adataihoz akkor a fo ablakba ugrunk be
                     reference.child(mFirebaseAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,7 +91,8 @@ public class SplashScreen extends AppCompatActivity {
                                         finish();
                                     }
                                 }, mSecondsDelayed * 1000);
-                            } else {
+                            } //ha nem sikerul akkor ugyancsak megkerjuka  felhasznalot jelentkezzen be
+                            else {
                                 new Handler().postDelayed(new Runnable() {
 
                                     public void run() {
@@ -82,7 +102,7 @@ public class SplashScreen extends AppCompatActivity {
                                 }, mSecondsDelayed * 1000);
                             }
                         }
-
+                        //ha a felhasznalo megszakitja a folyamatot akkor is a bejelentkezo ablakba ugrunk be
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             Toast.makeText(getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
@@ -95,7 +115,8 @@ public class SplashScreen extends AppCompatActivity {
                             }, mSecondsDelayed * 1000);
                         }
                     });
-                } catch (Exception e) {
+                } //ha egyeb mas hiba lep kozbe akkor errol tanustijuk a felhasznalot, illetve a bejelentkezo ablakba lepunk
+                catch (Exception e) {
                     Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
                     new Handler().postDelayed(new Runnable() {
 
@@ -105,7 +126,9 @@ public class SplashScreen extends AppCompatActivity {
                         }
                     }, mSecondsDelayed * 1000);
                 }
-            } else {
+            }
+            //ha nincs bejelentkezve a felhasznalo akkor csak a bejelentkezeshez lepunk be
+            else {
                 new Handler().postDelayed(new Runnable() {
 
                     public void run() {

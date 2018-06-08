@@ -6,6 +6,7 @@
     android:background="#000000"
     tools:context="com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity">
 
+    <!-- megjelenitunk egy gorgetheto nezetet-->
     <ScrollView
         android:id="@+id/LogIn_ParentScrollView"
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/faster_one"
-                android:text="Log In"
+                android:text="@string/log_in"
                 android:layout_gravity="center"
                 android:textColor="#ffffff"
                 android:textSize="60dp"
@@ -41,7 +42,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="40dp"
                 android:layout_weight="1"
-                android:text="Email"
+                android:text="@string/email"
                 android:textAlignment="center"
                 android:typeface="sans" />
 
@@ -64,7 +65,7 @@
                 style="@style/MyTextViewStyle"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Password"
+                android:text="@string/password"
                 android:textAlignment="center" />
 
             <EditText
@@ -86,7 +87,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_weight="3"
-                android:text="Log In"
+                android:text="@string/log_in"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -103,44 +104,6 @@
                 android:textAlignment="center"
                 android:textColor="#fcfffc"
                 android:textSize="14sp" />
-            <!--
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="5dp"
-                android:id="@+id/LogIn_Or">
-
-                <TextView
-                    android:id="@+id/tvText"
-                    android:layout_width="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="OR"
-                    android:textColor="#FFFFFF"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toLeftOf="@id/tvText"
-                    android:background="?android:attr/colorAccent"
-                    />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_toRightOf="@id/tvText"
-                    android:background="?android:attr/colorAccent"
-                    />
-
-            </RelativeLayout>-->
 
             <View
                 android:layout_width="match_parent"

@@ -39,15 +39,18 @@ import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //belepo pont a Firebase Authentifikacio SDK-ba, absztrakt osztaly
-    private FirebaseAuth firebaseAuth;
-    private TextView center;
+    //felso lec, kozep szovege deklaralasa
+    private TextView mTopBarCenterTV;
+    //also navigacios lec deklaralasa
     private BottomNavigationView mBottomNavBar;
+    //fragmentek illetve a keret deklaralasa
     private FrameLayout mBotFrameLayout;
     private HomeFragment mHomeFragment;
     private MyProfileFragment mMyProfileFragment;
     private FavouritesFragment mFavouritesFragment;
+    //felso lec ket szelso icon deklaralasa
     public ImageView mTopLeft, mTopRight;
+    //jelenlegi felhasznalo tarolasara keszitett valtozo
     public User currUser;
 
     @Override
@@ -55,21 +58,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        center = (TextView) findViewById(R.id.Main_Top_NavBar_Center);
+        //csatolasok a layout itemek es programkod kozott
+        mTopBarCenterTV = (TextView) findViewById(R.id.Main_Top_NavBar_Center);
         mBottomNavBar = (BottomNavigationView) findViewById(R.id.Main_Bot_Navbar);
         mBotFrameLayout = (FrameLayout) findViewById(R.id.Main_Frame_Layout_Main);
         mTopLeft = (ImageView) findViewById(R.id.Main_Top_NavBar_Left);
         mTopRight = (ImageView) findViewById(R.id.Main_Top_NavBar_Right);
 
+        //fragmensek letrehozasa
         mHomeFragment = new HomeFragment();
         mMyProfileFragment = new MyProfileFragment();
         mFavouritesFragment = new FavouritesFragment();
 
+        //also navbar modositasara hasznalt fuggveny
         disableShiftMode(mBottomNavBar);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        currUser = setCurrentUser();
-
+        //a kivalasztott item fuggvenyeben letrehozando dolgok
         mBottomNavBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -90,8 +94,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
+        //alapertelmezett fragmens kezdeskor
         mBottomNavBar.setSelectedItemId(R.id.Main_Bot_NavBar_Home);
+        //listenerek csatolasa
+        mTopLeft.setOnClickListener(this);
         mTopRight.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        currUser = setCurrentUser();
+
     }
 
     @Override
@@ -99,36 +113,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //fragmensek beallitasa
     private void setFragment(Fragment fragment) {
         FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.Main_Frame_Layout_Main, fragment);
         mFragmentTransaction.commit();
     }
 
+    //home fragmens elinditasakor, szukseges muveletek pl. iconok kicserelese, cim beallitasa
     private void initHome() {
         mTopLeft.setImageResource(R.drawable.ic_search_blue);
         mTopRight.setImageResource(R.drawable.ic_chat_blue);
         SpannableString text = new SpannableString(getResources().getString(R.string.app_name_bold));
         text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part1), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part2), 8, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        center.setText(text, TextView.BufferType.SPANNABLE);
+        mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
         setFragment(mHomeFragment);
     }
 
+    //ugyanaz csak a profil megjelenitesere
     private void initOwnProfile() {
         mTopLeft.setImageResource(R.drawable.ic_friend);
         mTopRight.setImageResource(R.drawable.ic_log_out);
         mBotFrameLayout.setBackgroundColor(Color.parseColor("#ff0000"));
         SpannableString text = new SpannableString(currUser.getUserName());
         text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part3), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        center.setText(text, TextView.BufferType.SPANNABLE);
+        mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
         setFragment(mMyProfileFragment);
     }
 
-    private User setCurrentUser() {
+    //a jelenlegi felhasznalo adatai
+    public User setCurrentUser() {
+        //lekerjuk a referenciat a felhasznalo tablahoz
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         try {
-            reference.child(firebaseAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            /*megkeressuk a mi felhasznalonkat, ha megkapjuk atalittjuk az adatait, ha pedig nem akkor valami hiba tortent es biztonsagi
+            okokbol visszaugrunk a belepesi fazisba*/
+            reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     currUser = new User(dataSnapshot.getValue(User.class));
@@ -137,10 +158,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     Toast.makeText(getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
+
                 }
             });
         } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, LogInActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             return null;
         }
         return currUser;
