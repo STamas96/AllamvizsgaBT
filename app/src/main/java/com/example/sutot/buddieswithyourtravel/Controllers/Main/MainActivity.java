@@ -1,5 +1,6 @@
 package com.example.sutot.buddieswithyourtravel.Controllers.Main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -18,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.FavouritesFragment;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.HomeFragment;
@@ -25,19 +28,23 @@ import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.MyProf
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity.CreateTripActivity;
 import com.example.sutot.buddieswithyourtravel.Models.User;
 import com.example.sutot.buddieswithyourtravel.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.disableShiftMode;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //felso lec, kozep szovege deklaralasa
-    private TextView mTopBarCenterTV;
+    public TextView mTopBarCenterTV;
     //also navigacios lec deklaralasa
     private BottomNavigationView mBottomNavBar;
     //fragmentek illetve a keret deklaralasa
@@ -49,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ImageView mTopLeft, mTopRight;
     //jelenlegi felhasznalo tarolasara keszitett valtozo
     public User currUser;
+    private final int CHANGE_PROFILE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,19 +107,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onResume(){
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onResume()
+    {
         super.onResume();
         currUser = setCurrentUser();
 
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
-
     //fragmensek beallitasa
-    private void setFragment(Fragment fragment) {
+    public void setFragment(Fragment fragment) {
         FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.Main_Frame_Layout_Main, fragment);
         mFragmentTransaction.commit();
@@ -119,24 +128,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //home fragmens elinditasakor, szukseges muveletek pl. iconok kicserelese, cim beallitasa
     private void initHome() {
-        mTopLeft.setImageResource(R.drawable.ic_search_blue);
-        mTopRight.setImageResource(R.drawable.ic_chat_blue);
-        SpannableString text = new SpannableString(getResources().getString(R.string.app_name_bold));
-        text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part1), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part2), 8, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
-        setFragment(mHomeFragment);
+        try {
+            mTopLeft.setImageResource(R.drawable.ic_search_blue);
+            mTopRight.setImageResource(R.drawable.ic_chat_blue);
+            SpannableString text = new SpannableString(getResources().getString(R.string.app_name_bold));
+            text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part1), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part2), 8, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
+            setFragment(mHomeFragment);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     //ugyanaz csak a profil megjelenitesere
     private void initOwnProfile() {
-        mTopLeft.setImageResource(R.drawable.ic_friend);
-        mTopRight.setImageResource(R.drawable.ic_log_out);
-        mBotFrameLayout.setBackgroundColor(Color.parseColor("#ff0000"));
-        SpannableString text = new SpannableString(currUser.getUserName());
-        text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part3), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
-        setFragment(mMyProfileFragment);
+        try {
+            mTopLeft.setImageResource(R.drawable.ic_friend);
+            mTopRight.setImageResource(R.drawable.ic_log_out);
+            mBotFrameLayout.setBackgroundColor(Color.parseColor("#ff0000"));
+            setFragment(mMyProfileFragment);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     //a jelenlegi felhasznalo adatai
@@ -167,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return currUser;
     }
+
 }
 
 

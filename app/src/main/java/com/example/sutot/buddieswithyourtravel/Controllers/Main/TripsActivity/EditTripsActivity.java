@@ -215,7 +215,7 @@ public class EditTripsActivity extends AppCompatActivity implements View.OnClick
             }
             temp.setLastTimeModified(Calendar.getInstance().getTime());
             if (pictureUri != null && !pictureUri.toString().isEmpty()) {
-                StorageReference filepath = storageReference.child("Trips/").child(tripKey.substring(0, 12)).child("images/").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                StorageReference filepath = storageReference.child("Trips/").child(tripKey).child("images/").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 filepath.putFile(pictureUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

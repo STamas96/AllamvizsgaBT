@@ -1,8 +1,12 @@
 package com.example.sutot.buddieswithyourtravel.Controllers.Main;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.MyProfileFragment;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity.EditTripsActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
 import com.example.sutot.buddieswithyourtravel.Models.User;
@@ -94,7 +100,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         //ha elakarjuk menteni a modositott adatokat
         if (view == mSaveChanges) {
             saveChanges();
-            finish();
         }
     }
 
@@ -134,6 +139,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             Glide.with(this)
                     .using(new FirebaseImageLoader())
                     .load(FirebaseStorage.getInstance().getReferenceFromUrl(user.getProfilePicture()))
+                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
                     .into(mProfilePicture);
         }
         //beallitsuk a layout itemjeinek a szoveget a felhasznalo adataival
@@ -201,16 +207,16 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                             public void onSuccess(Void aVoid) {
                                 mProgressDialog.dismiss();
                                 Toast.makeText(getBaseContext(), "Edited succesfully!", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                setResult(Activity.RESULT_OK);
+                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 mProgressDialog.dismiss();
                                 Toast.makeText(getBaseContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
-                                onBackPressed();
+                                setResult(Activity.RESULT_CANCELED);
+                                finish();
                             }
                         });
                         //hiba megjelenitese
@@ -223,16 +229,16 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                             public void onSuccess(Void aVoid) {
                                 mProgressDialog.dismiss();
                                 Toast.makeText(getBaseContext(), "Edited succesfully!", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                setResult(Activity.RESULT_CANCELED);
+                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 mProgressDialog.dismiss();
                                 Toast.makeText(getBaseContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
-                                onBackPressed();
+                                setResult(Activity.RESULT_CANCELED);
+                                finish();
                             }
                         });
                     }
@@ -245,16 +251,16 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     public void onSuccess(Void aVoid) {
                         mProgressDialog.dismiss();
                         Toast.makeText(getBaseContext(), "Edited succesfully!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        setResult(Activity.RESULT_CANCELED);
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         mProgressDialog.dismiss();
                         Toast.makeText(getBaseContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
-                        onBackPressed();
+                        setResult(Activity.RESULT_CANCELED);
+                        finish();
                     }
                 });
             }
