@@ -18,6 +18,7 @@ public class Trips {
     private Date mEndDate;
     private Date mTripCreated;
     private Date mLastTimeModified;
+    private String mDetailedDescription;
 
     //szukseges: ures konstruktor
     public Trips(){
@@ -26,7 +27,7 @@ public class Trips {
 
     //konstruktor
     public Trips(String ID, String owner, String title, String Images, String shortdesc, Date startdate, Date enddate,Date
-                 created,Date modified){
+                 created,Date modified,String longDesc){
         this.mID=ID;
         this.mOwnerID=owner;
         this.mTitle = title;
@@ -36,6 +37,21 @@ public class Trips {
         this.mEndDate=enddate;
         this.mTripCreated=created;
         this.mLastTimeModified=modified;
+        this.mDetailedDescription=longDesc;
+    }
+
+    public Trips(Trips temp)
+    {
+        this.mID = temp.mID;
+        this.mOwnerID = temp.mOwnerID;
+        this.mTitle = temp.mTitle;
+        this.mFilePath = temp.mFilePath;
+        this.mShortDescription = temp.mShortDescription;
+        this.mStartDate = temp.mStartDate;
+        this.mEndDate = temp.mEndDate;
+        this.mTripCreated = temp.mTripCreated;
+        this.mLastTimeModified = temp.mLastTimeModified;
+        this.mDetailedDescription = temp.mDetailedDescription;
     }
 
     //getters
@@ -61,6 +77,7 @@ public class Trips {
         return this.mEndDate;
     }
     public Date getmTripCreated() {return this.mTripCreated;}
+    public String getDetailedDescription() {return this.mDetailedDescription;}
     public Date getmLastTimeModified() {return this.mLastTimeModified;}
 
 
@@ -78,6 +95,7 @@ public class Trips {
         this.mEndDate = mEndDate;
     }
     public void setTripCreated(Date created) {this.mTripCreated = created;}
+    public void setDetailedDescription(String longDesc){ this.mDetailedDescription = longDesc;}
     public void setLastTimeModified (Date lmodified) {this.mLastTimeModified = lmodified;}
 
 

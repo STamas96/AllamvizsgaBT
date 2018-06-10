@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".Controllers.Main.CreateTripActivity"
+    tools:context=".Controllers.Main.TripsActivity.CreateTripActivity"
     android:id="@+id/CreateTrip_Main_Relative_Layout">
 
     <LinearLayout
@@ -32,8 +32,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:layout_marginLeft="30dp"
             android:layout_weight="3"
+            android:text="@string/createtrip"
             android:background="#FFFFFF"
             android:tint="#000000" />
     </LinearLayout>
@@ -77,7 +81,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="25dp"
                     android:layout_weight="1"
-                    android:text="Title"
+                    android:text="@string/title"
                     android:textAlignment="center" />
 
                 <EditText
@@ -107,7 +111,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:text="Short Description"
+                    android:text="@string/shortdesc"
                     android:textAlignment="center" />
 
                 <view xmlns:android="http://schemas.android.com/apk/res/android"
@@ -135,6 +139,46 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/CreateTrip_DetailedDescriptionLL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/CreateTrip_DetailedDescription"
+                    style="@style/MyTextViewStyle"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/detaildesc"
+                    android:textAlignment="center" />
+
+                <view xmlns:android="http://schemas.android.com/apk/res/android"
+                    class="com.example.sutot.buddieswithyourtravel.Utilities.Classes.LinedEditText"
+                    android:id="@+id/CreateTrip_DetailedDescription_Edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="10dp"
+                    android:lines="5"
+                    android:layout_weight="1"
+                    android:scrollbars="vertical"
+                    android:fadingEdge="vertical"
+                    android:capitalize="sentences"
+                    android:background="@drawable/rounded_edittext"
+                    android:textCursorDrawable="@drawable/rounded_editext_cursor"
+                    android:ellipsize="start"
+                    android:ems="10"
+                    android:hint="Please enter the detailed description"
+                    android:inputType="textMultiLine"
+                    android:maxLength="2500"
+                    android:textColor="#000000"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/CreatTrip_StartDateLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -147,7 +191,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="Start Date"
+                    android:text="@string/startdate"
                     android:textAlignment="center" />
 
                 <DatePicker
@@ -172,7 +216,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:text="End Date"
+                    android:text="@string/enddate"
                     android:textAlignment="center" />
 
                 <DatePicker
@@ -192,7 +236,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="12dp"
                 android:layout_weight="3"
-                android:text="Save"
+                android:text="@string/save"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"

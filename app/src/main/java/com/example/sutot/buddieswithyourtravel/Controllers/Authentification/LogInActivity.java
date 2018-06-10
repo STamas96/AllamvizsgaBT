@@ -74,6 +74,10 @@ public class LogInActivity extends AppCompatActivity  implements View.OnClickLis
                 buildDialogNeedToHaveMDorWiFi(LogInActivity.this);
             }
             else{
+                if (FirebaseAuth.getInstance().getCurrentUser() != null )
+                {
+                    LogOut();
+                }
                 signIn();
             }
         }
@@ -107,7 +111,7 @@ public class LogInActivity extends AppCompatActivity  implements View.OnClickLis
         setupPDialog(mSignInPDialog,"Loading...","Logging in");
 
         //megprobalunk bejelentkezni a firebasebe emailel es jelszoval
-        mFirebaseAuth.signInWithEmailAndPassword(UserEmail, UserPassword)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(UserEmail, UserPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
                     @Override
@@ -150,6 +154,15 @@ public class LogInActivity extends AppCompatActivity  implements View.OnClickLis
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("alreadyLoggedIn", pm );
         editor.commit();
+    }
+
+    private void LogOut() {
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences sharedPref = getSharedPreferences("LogInSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("alreadyLoggedIn", "loggedout");
+        editor.commit();
+
     }
 
 }

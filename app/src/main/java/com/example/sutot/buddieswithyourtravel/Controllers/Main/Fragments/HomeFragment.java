@@ -2,6 +2,7 @@ package com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity.DetailedTripActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
 import com.example.sutot.buddieswithyourtravel.Models.User;
@@ -77,6 +79,10 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             //feltoltjuk a Recycler view-t
             @Override
             protected void populateViewHolder(final TripViewHolder viewHolder, Trips model, int position) {
+
+                //megnevezzuk minden kirandulast, azaz megszerezzuk az idjukat
+                final String TripKey = getRef(position).getKey();
+
                 //beallitjuk a cimet es az erdeklodoinek a szamat
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setInteresteds();
@@ -88,7 +94,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                             String username = dataSnapshot.getValue(User.class).getUserName();
                             viewHolder.setOwner(username);
                         } catch (Exception e) {
-
+                            Toast.makeText(getContext(),e.getMessage().toString(),Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -103,6 +109,15 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                 viewHolder.setEndDate(model.getEndDate());
                 viewHolder.setCreatedTime(model.getmTripCreated());
                 viewHolder.setImage(getContext(),model.getFilePath());
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent detailedPost = new Intent(getContext(), DetailedTripActivity.class);
+                        detailedPost.putExtra("TripKey",TripKey);
+                        startActivity(detailedPost);
+                    }
+                });
 
             }
         };
@@ -176,12 +191,6 @@ public class HomeFragment extends android.support.v4.app.Fragment {
 
         }
     }
-}/*
-
-
-
-    }
-
-    */
+}
 
 

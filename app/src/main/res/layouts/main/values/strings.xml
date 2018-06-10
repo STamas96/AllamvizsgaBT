@@ -6,6 +6,16 @@
     <string name="myfavourites">My Favourites</string>
     <string name="myprofile">My Profile</string>
     <string name="addnewtrip">Add New Trip</string>
-    <string name="createtrip">Create Trip</string>
 
+    <string name="createtrip">Create Trip</string>
+    <string name="edittrip">Edit trip</string>
+    <string name="title">Title</string>
+    <string name="entertitle">Please enter title</string>
+    <string name="shortdesc">Short Description</string>
+    <string name="detaildesc">Detailed Description</string>
+    <string name="startdate">Start Date</string>
+    <string name="enddate">End Date</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="changephoto">Change Photo</string>
 </resources>

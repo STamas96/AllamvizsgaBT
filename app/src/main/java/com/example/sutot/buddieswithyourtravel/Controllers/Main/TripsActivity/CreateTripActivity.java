@@ -1,4 +1,4 @@
-package com.example.sutot.buddieswithyourtravel.Controllers.Main;
+package com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.Toast;
 
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,7 +40,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
     //felso lec gombok
     private ImageButton mAddNewImage, mBacktoMain;
     //modosithato szovegreszek
-    private EditText mTripTitle, mShortDescription;
+    private EditText mTripTitle, mShortDescription,mDetailedDescription;
     //datumok
     private DatePicker mStartDate, mEndDate;
     //gomb mely altal letrehozzuk az uj objektumot
@@ -73,6 +74,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         mAddNewTrip = (Button) findViewById(R.id.CreateTrip_AddNewPost);
         mMainLayout = (RelativeLayout) findViewById(R.id.CreateTrip_Main_Relative_Layout);
         mBacktoMain = (ImageButton) findViewById(R.id.CreateTrip_Back_Button);
+        mDetailedDescription = (EditText) findViewById(R.id.CreateTrip_DetailedDescription_Edit);
 
         //referenciak letrehozasa
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -83,6 +85,11 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         mShortDescription.setScroller(new Scroller(this));
         mShortDescription.setVerticalScrollBarEnabled(true);
         mShortDescription.setMovementMethod(new ScrollingMovementMethod());
+
+        mDetailedDescription.setMaxLines(50);
+        mDetailedDescription.setScroller(new Scroller(this));
+        mDetailedDescription.setVerticalScrollBarEnabled(true);
+        mDetailedDescription.setMovementMethod(new ScrollingMovementMethod());
 
         //listenerek csatolasa, erzekeljek a clicket
         mAddNewImage.setOnClickListener(this);
@@ -123,12 +130,13 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         setupPDialog(mProgressDialog, "Loading...", "Adding new post");
         final String newTripTitle = mTripTitle.getText().toString().trim();
         final String newTripSDescription = mShortDescription.getText().toString().trim();
+        final String newTripDDescription = mDetailedDescription.getText().toString().trim();
         final Date newTripStartDate = getDateFromDatePicker(mStartDate);
         final Date newTripEndDate = getDateFromDatePicker(mEndDate);
         final Date createdDate = Calendar.getInstance().getTime();
 
         //ha a cim es a leiras sem ures
-        if (!newTripTitle.isEmpty() && (!newTripSDescription.isEmpty())) {
+        if (!newTripTitle.isEmpty() && (!newTripSDescription.isEmpty()) && (!newTripDDescription.isEmpty())) {
 
             //kiolvassuk a jelenlegi felhasznalot a firebase adatbazisabol
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -155,7 +163,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                         //utvonal -> Kirandulas reszleg / szignatura
                         Trips newPost = new Trips(signatureTemp, currUser.getUid(), newTripTitle, downloadURL.toString(),
                                 newTripSDescription, newTripStartDate, newTripEndDate, Calendar.getInstance().getTime(),
-                                Calendar.getInstance().getTime());
+                                Calendar.getInstance().getTime(),newTripDDescription);
                         databaseReference.child("Trips").child(signatureTemp).setValue(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -185,7 +193,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                 String signatureTemp = signature + currUser.getUid();
                 Trips newPost = new Trips(signatureTemp, currUser.getUid(), newTripTitle, null,
                         newTripSDescription, newTripStartDate, newTripEndDate, Calendar.getInstance().getTime(),
-                        Calendar.getInstance().getTime());
+                        Calendar.getInstance().getTime(),newTripDDescription);
                 databaseReference.child("Trips").child(signatureTemp).setValue(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".Controllers.Main.TripsActivity.CreateTripActivity"
-    android:id="@+id/CreateTrip_Main_Relative_Layout">
+    tools:context=".Controllers.Main.TripsActivity.EditTripsActivity"
+    android:id="@+id/EditTrip_Main_Relative_Layout">
 
     <LinearLayout
-        android:id="@+id/Main_Top_NavBar_LLayout"
+        android:id="@+id/EditTrip_Top_NavBar_LLayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
@@ -17,7 +17,7 @@
         android:background="#FFFFFF">
 
         <ImageButton
-            android:id="@+id/CreateTrip_Back_Button"
+            android:id="@+id/EditTrip_Back_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -27,37 +27,50 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_arrow_back"
             android:tint="#000000" />
+
         <TextView
-            android:id="@+id/CreateTrip_EmptyView"
+            android:id="@+id/EditTrip_Title_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
-            android:textStyle="bold"
+            android:layout_weight="5"
             android:textSize="16dp"
-            android:layout_weight="3"
-            android:text="@string/createtrip"
-            android:textColor="#000000"
+            android:textStyle="bold"
             android:background="#FFFFFF"
+            android:text="@string/edittrip"
+            android:textColor="#000000"
+            android:tint="#000000" />
+
+        <ImageButton
+            android:id="@+id/EditTrip_Save_Changes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_save_changes"
             android:tint="#000000" />
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/CreateTrip_ParentScroll"
+        android:id="@+id/EditTrip_ParentScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp">
 
         <LinearLayout
-            android:id="@+id/CreateTrip_ParentLLayout"
+            android:id="@+id/EditTrip_ParentLLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/CreateTrip_Photos"
+            <ImageView
+                android:id="@+id/EditTrip_Photos"
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
@@ -68,15 +81,28 @@
                 android:clickable="true"
                 android:scaleType="centerCrop" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/EditTrip_Change_Photo_TV"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:text="@string/changephoto"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center" />
+
             <LinearLayout
-                android:id="@+id/CreatTrip_TitleLL"
+                android:id="@+id/EditTrip_TitleLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/CreateTrip_Title"
+                    android:id="@+id/EditTrip_Title"
                     style="@style/MyTextViewStyle"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="25dp"
@@ -85,7 +111,7 @@
                     android:textAlignment="center" />
 
                 <EditText
-                    android:id="@+id/CreateTrip_Title_Edit"
+                    android:id="@+id/EditTrip_Title_Edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -93,20 +119,20 @@
                     android:layout_weight="1"
                     android:ellipsize="start"
                     android:ems="10"
-                    android:hint="Please enter title"
+                    android:hint="@string/entertitle"
                     android:inputType="textShortMessage"
                     android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/CreatTrip_ShortDescriptionLL"
+                android:id="@+id/EditTrip_ShortDescriptionLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/CreateTrip_ShortDescription"
+                    android:id="@+id/EditTrip_ShortDescription"
                     style="@style/MyTextViewStyle"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="20dp"
@@ -116,7 +142,7 @@
 
                 <view xmlns:android="http://schemas.android.com/apk/res/android"
                     class="com.example.sutot.buddieswithyourtravel.Utilities.Classes.LinedEditText"
-                    android:id="@+id/CreateTrip_ShortDescription_Edit"
+                    android:id="@+id/EditTrip_ShortDescription_Edit"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_alignParentEnd="true"
@@ -139,14 +165,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/CreateTrip_DetailedDescriptionLL"
+                android:id="@+id/EditTrip_DetailedDescriptionLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/CreateTrip_DetailedDescription"
+                    android:id="@+id/EditTrip_DetailedDescription"
                     style="@style/MyTextViewStyle"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="20dp"
@@ -156,7 +182,7 @@
 
                 <view xmlns:android="http://schemas.android.com/apk/res/android"
                     class="com.example.sutot.buddieswithyourtravel.Utilities.Classes.LinedEditText"
-                    android:id="@+id/CreateTrip_DetailedDescription_Edit"
+                    android:id="@+id/EditTrip_DetailedDescription_Edit"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_alignParentEnd="true"
@@ -171,7 +197,7 @@
                     android:textCursorDrawable="@drawable/rounded_editext_cursor"
                     android:ellipsize="start"
                     android:ems="10"
-                    android:hint="Please enter the detailed description"
+                    android:hint="Please enter description"
                     android:inputType="textMultiLine"
                     android:maxLength="2500"
                     android:textColor="#000000"
@@ -179,14 +205,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/CreatTrip_StartDateLL"
+                android:id="@+id/EditTrip_StartDateLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/CreateTrip_StartDate_Label"
+                    android:id="@+id/EditTrip_StartDate_Label"
                     style="@style/MyTextViewStyle"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="10dp"
@@ -195,7 +221,7 @@
                     android:textAlignment="center" />
 
                 <DatePicker
-                    android:id="@+id/CreateTrip_StartDate"
+                    android:id="@+id/EditTrip_StartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -204,14 +230,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/CreatTrip_EndDateLL"
+                android:id="@+id/EditTrip_EndDateLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/CreateTrip_EndDate_Label"
+                    android:id="@+id/EditTrip_EndDate_Label"
                     style="@style/MyTextViewStyle"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="20dp"
@@ -220,7 +246,7 @@
                     android:textAlignment="center" />
 
                 <DatePicker
-                    android:id="@+id/CreateTrip_EndDate"
+                    android:id="@+id/EditTrip_EndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -229,14 +255,14 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/CreateTrip_AddNewPost"
+                android:id="@+id/EditTrip_Delete_Post"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="40dp"
                 android:layout_marginTop="12dp"
                 android:layout_weight="3"
-                android:text="@string/save"
+                android:text="@string/delete"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -245,4 +271,5 @@
         </LinearLayout>
 
     </ScrollView>
+
 </RelativeLayout>

@@ -12,11 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.EditProfileActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity.DetailedTripActivity;
 import com.example.sutot.buddieswithyourtravel.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -54,6 +58,17 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
         mMainActivity.currUser = mMainActivity.setCurrentUser();
         mUserFullName.setText(mMainActivity.currUser.getFirstName() + " " + mMainActivity.currUser.getLastName());
         mEditProfile.setOnClickListener(this);
+        if (mMainActivity.currUser.getProfilePicture() == null || mMainActivity.currUser.getProfilePicture().isEmpty())
+        {
+            mProfilePic.setImageResource(R.drawable.no_profile_pic);
+        }
+        else
+        {
+            Glide.with(this)
+                    .using(new FirebaseImageLoader())
+                    .load(FirebaseStorage.getInstance().getReferenceFromUrl(mMainActivity.currUser.getProfilePicture()))
+                    .into(mProfilePic);
+        }
         mMainActivity.mTopRight.setOnClickListener(this);
 
     }

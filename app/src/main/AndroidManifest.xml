@@ -32,8 +32,10 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Controllers.Main.CreateTripActivity" />
-        <activity android:name=".Controllers.Main.EditProfileActivity"></activity>
+        <activity android:name=".Controllers.Main.TripsActivity.CreateTripActivity" />
+        <activity android:name=".Controllers.Main.EditProfileActivity" />
+        <activity android:name=".Controllers.Main.TripsActivity.EditTripsActivity" />
+        <activity android:name=".Controllers.Main.TripsActivity.DetailedTripActivity"></activity>
     </application>
 
 </manifest>

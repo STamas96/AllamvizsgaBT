@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_save_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_edit_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -56,7 +56,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="P:\Aktiv projektek\BuddiesWithYourTravel\app\src\main\res\drawable\if_departure_1454207.png" />
-                                      <entry key="outputName" value="ic_save_changes" />
+                                      <entry key="outputName" value="ic_edit_post" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>

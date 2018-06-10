@@ -1,10 +1,7 @@
 package com.example.sutot.buddieswithyourtravel.Controllers.Main;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -25,6 +22,7 @@ import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogI
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.FavouritesFragment;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.HomeFragment;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.Fragments.MyProfileFragment;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity.CreateTripActivity;
 import com.example.sutot.buddieswithyourtravel.Models.User;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +33,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.disableShiftMode;
-import static com.example.sutot.buddieswithyourtravel.Utilities.Classes.Utility.isConnected;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
