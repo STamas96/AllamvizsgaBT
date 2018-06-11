@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Controllers.Main.SearchFriendsActivity">
+
+    <LinearLayout
+        android:id="@+id/Search_Friend_Top_NavBar_LLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF">
+
+        <ImageButton
+            android:id="@+id/Search_Friend_Back_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="#000000" />
+
+        <TextView
+            android:id="@+id/Search_Friend_Title_TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="5"
+            android:background="#FFFFFF"
+            android:text="Search friend"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:tint="#000000" />
+    </LinearLayout>
+
+     <TextView
+         android:id="@+id/Search_Friend_Suggestion"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/Search_Friend_Top_NavBar_LLayout"
+         android:layout_alignParentStart="true"
+         android:textSize="15dp"
+         android:text="Search after your friends or find a new one: "
+         android:textAlignment="center"
+         android:textStyle="bold"
+         android:layout_marginVertical="20dp"/>
+
+    <EditText
+        android:id="@+id/Search_Friend_Input"
+        android:layout_width="254dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Search_Friend_Suggestion"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginStart="36dp"
+        android:hint="Enter here his name" />
+
+    <ImageButton
+        android:id="@+id/Search_Friend_Search"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/Search_Friend_Suggestion"
+        android:layout_toEndOf="@+id/Search_Friend_Input"
+        android:src="@drawable/ic_search_blue"
+        android:tint="#FFFFFF" />
+    
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/Search_Friend_Result"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Search_Friend_Input"
+        android:layout_margin="10dp"></android.support.v7.widget.RecyclerView>
+
+
+</RelativeLayout>

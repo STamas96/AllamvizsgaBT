@@ -33,9 +33,12 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Controllers.Main.TripsActivity.CreateTripActivity" />
-        <activity android:name=".Controllers.Main.EditProfileActivity" />
+        <activity android:name=".Controllers.Main.Profile.EditProfileActivity" />
         <activity android:name=".Controllers.Main.TripsActivity.EditTripsActivity" />
-        <activity android:name=".Controllers.Main.TripsActivity.DetailedTripActivity"></activity>
+        <activity android:name=".Controllers.Main.TripsActivity.DetailedTripActivity" />
+        <activity android:name=".Controllers.Main.Profile.ProfileActivity" />
+        <activity android:name=".Controllers.Main.SearchFriendsActivity" />
+        <activity android:name=".Controllers.Main.CommentsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.sutot.buddieswithyourtravel.Controllers.Main;
+package com.example.sutot.buddieswithyourtravel.Controllers.Main.Profile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

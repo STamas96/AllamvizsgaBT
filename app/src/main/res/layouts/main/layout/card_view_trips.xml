@@ -1,149 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="15dp">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#b5b5b5"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/Trip_Title_Header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="15dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_weight="3"
             android:background="#919191"
             android:fontFamily="@font/pacifico"
             android:gravity="left"
+            android:paddingLeft="15dp"
             android:text="asdaddsdsa"
             android:textSize="24dp" />
-        <LinearLayout
-            android:id="@+id/Trip_Dates"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="30dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:id="@+id/Trip_StartDate">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:id="@+id/Trip_StartDate_Image"
-                    android:layout_weight="4"
-                    android:tint="#000000"
-                    android:src="@drawable/ic_departures"/>
-
-                <TextView
-                    android:id="@+id/Trip_StartDate_TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textColor="#000000"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:id="@+id/Trip_EndDate">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/Trip_EndDate_Image"
-                    android:background="#FFFFFF"
-                    android:layout_weight="4"
-                    android:src="@drawable/ic_arrivals"/>
-
-                <TextView
-                    android:id="@+id/Trip_EndDate_TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="#000000"
-                    android:background="#FFFFFF"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/Trip_Image"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"></ImageView>
-
-        <TextView
-            android:id="@+id/Trip_Short_Description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#b5b5b5"
-            android:textSize="10dp"
-            android:textColor="#000000"
-            android:layout_marginLeft="8dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/Trip_Header_bar">
-            <LinearLayout
-                android:id="@+id/Trip_Interested_Header"
+            <TextView
+                android:id="@+id/Trip_Uploaded_Time"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
+                android:textSize="11dp" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.5"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:tint="#ffee00"
-                    android:src="@drawable/ic_star_blue"/>
-
-                <TextView
-                    android:id="@+id/Trip_Interested_Text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:paddingLeft="10dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textColor="#000000"
-                    android:textSize="10dp"/>
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/Trip_Owner_Header"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="3">
+                android:layout_marginHorizontal="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_weight="6"
-                    android:tint="#4c0705"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/Trip_Owner_Profile_Pic"
                     android:background="#FFFFFF"
-                    android:src="@drawable/ic_owner_blue" />
+                    android:src="@drawable/no_profile_pic"
+                    android:tint="#4c0705" />
 
                 <TextView
                     android:id="@+id/Trip_Owner_User"
@@ -153,24 +64,135 @@
                     android:layout_weight="1"
                     android:background="#FFFFFF"
                     android:gravity="center"
+                    android:text="asdasdasdasdasdasdsadasdsa"
                     android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="10dp"/>
+                    android:textSize="10dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/Trip_Dates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/Trip_StartDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/Trip_StartDate_Image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/ic_departures"
+                    android:tint="#000000" />
+
+                <TextView
+                    android:id="@+id/Trip_StartDate_TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:textColor="#000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Trip_EndDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/Trip_EndDate_Image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/ic_arrivals" />
+
+                <TextView
+                    android:id="@+id/Trip_EndDate_TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:textColor="#000000" />
             </LinearLayout>
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/Trip_Image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"></ImageView>
+
         <TextView
-            android:id="@+id/Trip_Uploaded_Time"
+            android:id="@+id/Trip_Short_Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:background="#b5b5b5"
-            android:paddingTop="5dp"
+            android:layout_marginLeft="8dp"
             android:textColor="#000000"
-            android:textSize="11dp" />
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:id="@+id/Trip_Header_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/Trip_Interested_Header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/Trip_Interested_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.5"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/ic_dislike" />
+
+                <TextView
+                    android:id="@+id/Trip_Interested_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:textColor="#000000"
+                    android:text="0 likes"
+                    android:textSize="10dp" />
+
+                <ImageButton
+                    android:id="@+id/Trip_Comments_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.5"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/ic_comment" />
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
-    
-    
+
 
 </android.support.v7.widget.CardView>

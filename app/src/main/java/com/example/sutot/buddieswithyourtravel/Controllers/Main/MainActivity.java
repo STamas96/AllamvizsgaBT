@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //jelenlegi felhasznalo tarolasara keszitett valtozo
     public User currUser;
     private final int CHANGE_PROFILE = 1;
+    public Boolean LikeChecker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //ugyanaz csak a profil megjelenitesere
     private void initOwnProfile() {
         try {
-            mTopLeft.setImageResource(R.drawable.ic_friend);
+            mTopLeft.setImageResource(R.drawable.ic_search_blue);
             mTopRight.setImageResource(R.drawable.ic_log_out);
             mBotFrameLayout.setBackgroundColor(Color.parseColor("#ff0000"));
             setFragment(mMyProfileFragment);

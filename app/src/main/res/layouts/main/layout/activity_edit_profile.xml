@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:id="@+id/EditProfile_Relative_Main"
-    tools:context=".Controllers.Main.EditProfileActivity">
+    tools:context=".Controllers.Main.Profile.EditProfileActivity">
 
     <LinearLayout
         android:id="@+id/EditProfile_Top_NavBar_LLayout"

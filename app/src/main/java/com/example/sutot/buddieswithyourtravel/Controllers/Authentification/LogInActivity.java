@@ -74,6 +74,7 @@ public class LogInActivity extends AppCompatActivity  implements View.OnClickLis
                 buildDialogNeedToHaveMDorWiFi(LogInActivity.this);
             }
             else{
+                //ha mar bevagyunk jelentkezve egy masik felhasznaloval es beszeretnenk jelentkezni egy masikkal elobb kikell lepjunk
                 if (FirebaseAuth.getInstance().getCurrentUser() != null )
                 {
                     LogOut();

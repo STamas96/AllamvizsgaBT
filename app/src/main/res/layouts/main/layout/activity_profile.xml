@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Controllers.Main.Profile.ProfileActivity">
+
+    <LinearLayout
+        android:id="@+id/Profile_Top_NavBar_LLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF">
+
+        <ImageButton
+            android:id="@+id/Profile_Back_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="#000000" />
+
+        <TextView
+            android:id="@+id/Profile_Full_Name_TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="5"
+            android:background="#FFFFFF"
+            android:text="Edit profile"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:tint="#000000" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/Profile_Scroll_Parent"
+        android:layout_below="@+id/Profile_Top_NavBar_LLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/Profile_Main_Relative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/Profile_Profile_Pic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/no_profile_pic"
+                app:civ_border_color="#000000"
+                app:civ_border_width="2dp" />
+
+
+            <LinearLayout
+                android:id="@+id/Profile_Email_LinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/Profile_Profile_Pic"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Profile_Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Profile_Location_LinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/Profile_Email_LinearLayout"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Profile_Location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Location" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Profile_Short_Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/Profile_Location_LinearLayout"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:text="ShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripitonShortDescripiton" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
