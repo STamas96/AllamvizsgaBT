@@ -18,13 +18,17 @@ import android.widget.Toast;
 
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
+import com.example.sutot.buddieswithyourtravel.Models.User;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -147,6 +151,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
 
             //beallitjuk hova mentsuk el a kepet
             StorageReference filepath = storageReference.child("Trips/").child(signature).child("images/").child(currUser.getUid());
+            final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child("Users").child(currUser.getUid());
 
             //ha a kep nem ures, azaz raktunk valami kepet
             if (pictureUri != null) {
@@ -167,9 +172,24 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                         databaseReference.child("Trips").child(signatureTemp).setValue(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                mProgressDialog.dismiss();
-                                Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
-                                onBackPressed();
+                                dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        User temp = new User(dataSnapshot.getValue(User.class));
+                                        temp.addNewTrip();
+                                        dbref.setValue(temp);
+                                        mProgressDialog.dismiss();
+                                        Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(CreateTripActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -197,9 +217,24 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                 databaseReference.child("Trips").child(signatureTemp).setValue(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User temp = new User(dataSnapshot.getValue(User.class));
+                                temp.addNewTrip();
+                                dbref.setValue(temp);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                         mProgressDialog.dismiss();
                         Toast.makeText(getBaseContext(), "Uploaded succesfully!", Toast.LENGTH_LONG).show();
-                        onBackPressed();
+                        Intent intent = new Intent(CreateTripActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

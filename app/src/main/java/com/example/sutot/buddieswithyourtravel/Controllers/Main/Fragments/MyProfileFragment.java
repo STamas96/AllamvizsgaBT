@@ -22,7 +22,7 @@ import com.bumptech.glide.signature.StringSignature;
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.Profile.EditProfileActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
-import com.example.sutot.buddieswithyourtravel.Controllers.Main.SearchFriendsActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.SearchActivity;
 import com.example.sutot.buddieswithyourtravel.Models.User;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -42,7 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MyProfileFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
     private CircleImageView mProfilePic;
-    private TextView mUserFullName;
+    private TextView mUserFullName,mCreatedTripsNr;
     private static final int GALLERY_REQUEST = 1;
     private MainActivity mMainActivity;
     private Button mEditProfile;
@@ -68,20 +68,34 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
         mProfilePic = (CircleImageView) mMainActivity.findViewById(R.id.MyProfile_Profile_Image);
         mUserFullName = (TextView) mMainActivity.findViewById(R.id.MyProfile_User_Full_Name);
         mEditProfile = (Button) mMainActivity.findViewById(R.id.MyPRofile_Edit_Profile_Button);
+        mCreatedTripsNr = mMainActivity.findViewById(R.id.MyProfile_Trips_Number_TextView);
 
-        //megnyitjuk a megosztott fajlokat,hogy majd tudjunk innen kiolvasni adatokat illetve tarolni
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+
+        //gombok erzekeljek mikor rajuk klikkeltunk
+        mEditProfile.setOnClickListener(this);
+        mMainActivity.mTopLeft.setOnClickListener(this);
+        mMainActivity.mTopRight.setOnClickListener(this);
 
         //atirjuk a fo cimet, a felhasznalonevre
-        SpannableString text = new SpannableString(mMainActivity.currUser.getUserName());
-        text.setSpan(new TextAppearanceSpan(getContext(), R.style.MainScreen_AppName_Part3), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mMainActivity.mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
+        try {
+            SpannableString text = new SpannableString(mMainActivity.currUser.getUserName());
+            text.setSpan(new TextAppearanceSpan(getContext(), R.style.MainScreen_AppName_Part3), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mMainActivity.mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
+        }
+        catch (Exception e)
+        {
+
+        }
 
         //beallitjuk a felhasznalo lassa a sajat nevet illetve profil kepet
-        mUserFullName.setText(mMainActivity.currUser.getFirstName() + " " + mMainActivity.currUser.getLastName());
+        mUserFullName.setText(mMainActivity.currUser.getName());
+
         if (mMainActivity.currUser.getProfilePicture() == null || mMainActivity.currUser.getProfilePicture().isEmpty()) {
             mProfilePic.setImageResource(R.drawable.no_profile_pic);
         } else {
+            //megnyitjuk a megosztott fajlokat,hogy majd tudjunk innen kiolvasni adatokat illetve tarolni
+            SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
             String sign = sharedPref.getString("glidepic", new StringSignature(String.valueOf(System.currentTimeMillis())).toString());
             Glide.with(this)
                     .using(new FirebaseImageLoader())
@@ -89,13 +103,9 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
                     .signature(new StringSignature(sign))
                     .into(mProfilePic);
         }
-
-        //gombok erzekeljek mikor rajuk klikkeltunk
-        mEditProfile.setOnClickListener(this);
-        mMainActivity.mTopLeft.setOnClickListener(this);
-        mMainActivity.mTopRight.setOnClickListener(this);
-
+        mCreatedTripsNr.setText(String.valueOf(mMainActivity.currUser.getCreatedTripsNr()));
     }
+
 
     @Override
     public void onClick(View view) {
@@ -105,7 +115,9 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
         }
 
         if (view == mMainActivity.mTopLeft) {
-             startActivity(new Intent(getContext(), SearchFriendsActivity.class));
+            Intent searchFriend = new Intent(getContext(), SearchActivity.class);
+            searchFriend.putExtra("type","user");
+            startActivity(searchFriend);
         }
 
         //profil modositasa, valasszal
@@ -132,7 +144,7 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
                         StringSignature temp = new StringSignature(String.valueOf(System.currentTimeMillis()));
                         editor.putString("glidepic", temp.toString());
                         editor.commit();
-                        mUserFullName.setText(mMainActivity.currUser.getFirstName() + " " + mMainActivity.currUser.getLastName());
+                        mUserFullName.setText(mMainActivity.currUser.getName());
                         //ha a kep is modosult
                         if (resultCode == Activity.RESULT_OK) {
                             Glide.with(getContext())
@@ -144,14 +156,14 @@ public class MyProfileFragment extends android.support.v4.app.Fragment implement
                             SpannableString text = new SpannableString(tcurrUser.getUserName());
                             text.setSpan(new TextAppearanceSpan(getContext(), R.style.MainScreen_AppName_Part3), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             mMainActivity.mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
-                            mUserFullName.setText(tcurrUser.getFirstName() + " " + tcurrUser.getLastName());
+                            mUserFullName.setText(tcurrUser.getName());
                         }
                         //ha a kep nem modosult
                         if (resultCode == Activity.RESULT_CANCELED) {
                             SpannableString text = new SpannableString(tcurrUser.getUserName());
                             text.setSpan(new TextAppearanceSpan(getContext(), R.style.MainScreen_AppName_Part3), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             mMainActivity.mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
-                            mUserFullName.setText(tcurrUser.getFirstName() + " " + tcurrUser.getLastName());
+                            mUserFullName.setText(tcurrUser.getName());
                         }
                     }
 

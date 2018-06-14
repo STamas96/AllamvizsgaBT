@@ -10,8 +10,6 @@
     <string name="createanewaccount">Don\'t have an account? <b>Sign up now.</b></string>
     <string name="register">Register</string>
     <string name="name">Name</string>
-    <string name="firstname">First name</string>
-    <string name="lastname">Last name</string>
     <string name="username">Username</string>
     <string name="enterusername">Please enter a username</string>
     <string name="birthday">Birthday</string>

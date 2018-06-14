@@ -98,42 +98,19 @@
                 android:text="Name"
                 android:textAlignment="center" />
 
-            <LinearLayout
-                android:id="@+id/EditProfile_Fullname_LLayout"
+            <EditText
+                android:id="@+id/EditProfile_NameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/EditProfile_FirstNameEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/LogIn_EmailLabel"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:ellipsize="start"
-                    android:ems="10"
-                    android:hint="First name"
-                    android:inputType="textEmailAddress"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/EditProfile_LastNameEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/LogIn_EmailLabel"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:ellipsize="start"
-                    android:ems="10"
-                    android:hint="Last name"
-                    android:inputType="textEmailAddress"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/LogIn_EmailLabel"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:ellipsize="start"
+                android:ems="10"
+                android:hint="Please enter your name"
+                android:inputType="textEmailAddress"
+                android:textAlignment="center" />
 
             <LinearLayout
                 android:id="@+id/EditProfile_Username_LLayout"

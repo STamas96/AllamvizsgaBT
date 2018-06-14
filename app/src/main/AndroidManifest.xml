@@ -37,8 +37,10 @@
         <activity android:name=".Controllers.Main.TripsActivity.EditTripsActivity" />
         <activity android:name=".Controllers.Main.TripsActivity.DetailedTripActivity" />
         <activity android:name=".Controllers.Main.Profile.ProfileActivity" />
-        <activity android:name=".Controllers.Main.SearchFriendsActivity" />
-        <activity android:name=".Controllers.Main.CommentsActivity"></activity>
+        <activity android:name=".Controllers.Main.SearchActivity" />
+        <activity android:name=".Controllers.Main.TripsActivity.CommentsActivity" />
+        <activity android:name=".Controllers.Main.TripsActivity.ViewImage"
+            android:theme="@style/NoTitleDialog"></activity>
     </application>
 
 </manifest>

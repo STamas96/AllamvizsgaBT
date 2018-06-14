@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#FFFFFF"
     android:layout_height="match_parent"
-    tools:context=".Controllers.Main.CommentsActivity">
+    tools:context=".Controllers.Main.TripsActivity.CommentsActivity">
 
     <LinearLayout
         android:id="@+id/Comments_Top_NavBar_LLayout"
@@ -71,10 +71,21 @@
         android:inputType="textMultiLine"/>
 
     <ImageButton
+        android:id="@+id/Comments_Upload_Pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/Comments_NewComment_Input"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:padding="11dp"
+        android:src="@drawable/ic_addnewtrip_blue"
+        android:tint="#FFFFFF" />
+
+    <ImageButton
         android:id="@+id/Comments_Send_Comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/Comments_NewComment_Input"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:background="#000000"
         android:padding="11dp"

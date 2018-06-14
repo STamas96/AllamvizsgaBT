@@ -88,8 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         initHome();
                         return true;
                     case R.id.Main_Bot_NavBar_Favourites:
-                        mBotFrameLayout.setBackgroundColor(Color.parseColor("#000000"));
-                        setFragment(mFavouritesFragment);
+                        initFav();
                         return true;
                     case R.id.Main_Bot_NavBar_OwnProfile:
                         initOwnProfile();
@@ -137,6 +136,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part2), 8, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
             setFragment(mHomeFragment);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initFav() {
+        try {
+            mTopLeft.setImageResource(R.drawable.ic_search_blue);
+            mTopRight.setImageResource(R.drawable.ic_chat_blue);
+            SpannableString text = new SpannableString(getResources().getString(R.string.app_name_bold));
+            text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part1), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            text.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.MainScreen_AppName_Part2), 8, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mTopBarCenterTV.setText(text, TextView.BufferType.SPANNABLE);
+            setFragment(mFavouritesFragment);
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
         }

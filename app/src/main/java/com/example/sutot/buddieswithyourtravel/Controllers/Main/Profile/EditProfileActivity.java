@@ -56,7 +56,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     //kep megcserelesere hasznalt text view
     private TextView mChangePhoto;
     //modosithato szovegreszek
-    private EditText mFirstName, mLastName, mUserName, mEmail, mShortDescription;
+    private EditText mName, mUserName, mEmail, mShortDescription;
     //kep beallitasara hasznalt intent id-ja
     private static final int GALLERY_REQUEST = 1;
     private ProgressDialog mProgressDialog;
@@ -75,8 +75,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         mSaveChanges = findViewById(R.id.EditProfile_Save_Changes);
         mProfilePicture = findViewById(R.id.EditProfile_User_Photo);
         mChangePhoto = findViewById(R.id.EditProfile_Change_Profile_Picture);
-        mFirstName = findViewById(R.id.EditProfile_FirstNameEdit);
-        mLastName = findViewById(R.id.EditProfile_LastNameEdit);
+        mName = findViewById(R.id.EditProfile_NameEdit);
         mUserName = findViewById(R.id.EditProfile_Username_EditText);
         mEmail = findViewById(R.id.EditProfile_Email_EditText);
         mShortDescription = findViewById(R.id.EditProfile_ShortDescription_Edit);
@@ -143,8 +142,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     .into(mProfilePicture);
         }
         //beallitsuk a layout itemjeinek a szoveget a felhasznalo adataival
-        mFirstName.setText(user.getFirstName());
-        mLastName.setText(user.getLastName());
+        mName.setText(user.getName());
         mEmail.setText(user.getEmail());
         mUserName.setText(user.getUserName());
         if (user.getBio() != null && !user.getBio().isEmpty()) {
@@ -177,11 +175,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         setupPDialog(mProgressDialog, "Loading...", "Editing profile");
         if (isConnected(this)) {
             //ha nem ures egyik modosithato mezo se akkor elmentjuk maskepp nem
-            if (!mFirstName.getText().toString().isEmpty()) {
-                currUser.setFirstName(mFirstName.getText().toString());
-            }
-            if (!mLastName.getText().toString().isEmpty()) {
-                currUser.setLastName(mLastName.getText().toString());
+            if (!mName.getText().toString().isEmpty()) {
+                currUser.setName(mName.getText().toString());
             }
             if (!mEmail.getText().toString().isEmpty()) {
                 currUser.setEmail(mEmail.getText().toString());

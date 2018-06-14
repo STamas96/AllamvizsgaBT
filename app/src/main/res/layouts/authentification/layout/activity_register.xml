@@ -25,10 +25,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/faster_one"
                 android:text="@string/register"
-                android:layout_gravity="center"
                 android:textColor="#ffffff"
                 android:textSize="60dp"
                 android:textStyle="bold"
@@ -43,42 +43,19 @@
                 android:text="@string/name"
                 android:textAlignment="center" />
 
-            <LinearLayout
-                android:id="@+id/Register_LinearLayout_NameEdit"
+            <EditText
+                android:id="@+id/Register_NameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/Register_FirstNameEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/LogIn_EmailLabel"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:ellipsize="start"
-                    android:ems="10"
-                    android:hint="@string/firstname"
-                    android:inputType="textEmailAddress"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/Register_LastNameEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/LogIn_EmailLabel"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:ellipsize="start"
-                    android:ems="10"
-                    android:hint="@string/lastname"
-                    android:inputType="textEmailAddress"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/LogIn_EmailLabel"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:ellipsize="start"
+                android:ems="10"
+                android:hint="Please enter your name"
+                android:inputType="textEmailAddress"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/Register_UserNameLabel"
@@ -100,9 +77,9 @@
                 android:layout_weight="1"
                 android:ellipsize="start"
                 android:ems="10"
-                android:maxLength="25"
                 android:hint="@string/enterusername"
                 android:inputType="textEmailAddress"
+                android:maxLength="25"
                 android:textAlignment="center" />
 
             <TextView
@@ -131,9 +108,9 @@
 
             <TextView
                 android:id="@+id/Register_PasswordLabel"
+                style="@style/MyTextViewStyle"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                style="@style/MyTextViewStyle"
                 android:text="@string/password"
                 android:textAlignment="center" />
 
@@ -152,18 +129,19 @@
 
             <TextView
                 android:id="@+id/Register_BirthdayLabel"
+                style="@style/MyTextViewStyle"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:text="@string/birthday"
-                android:textAlignment="center"
-                style="@style/MyTextViewStyle"/>
+                android:textAlignment="center" />
 
-            <DatePicker android:id="@+id/Register_Birthday"
+            <DatePicker
+                android:id="@+id/Register_Birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:datePickerMode="spinner"
+                android:layout_centerHorizontal="true"
                 android:calendarViewShown="false"
-                android:layout_centerHorizontal="true"/>
+                android:datePickerMode="spinner" />
 
             <Button
                 android:id="@+id/Register_SignUpButton"
@@ -181,15 +159,15 @@
                 android:id="@+id/Register_AlreadyHaveAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="50dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="2"
                 android:fontFamily="sans-serif-condensed"
                 android:text="@string/alreadyhaveanaccount"
-                android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView"
                 android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView"
                 android:textColor="#fcfffc"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 

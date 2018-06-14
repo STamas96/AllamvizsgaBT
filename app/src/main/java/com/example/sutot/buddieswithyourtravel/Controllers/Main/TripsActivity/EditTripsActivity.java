@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.sutot.buddieswithyourtravel.Controllers.Authentification.LogInActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
+import com.example.sutot.buddieswithyourtravel.Models.User;
 import com.example.sutot.buddieswithyourtravel.R;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -319,11 +320,33 @@ public class EditTripsActivity extends AppCompatActivity implements View.OnClick
             databaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    mProgressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Deleted succesfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(EditTripsActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    final User ourUser;
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User temp = new User(dataSnapshot.getValue(User.class));
+                            temp.removeTrip();
+                            FirebaseDatabase.getInstance().getReference()
+                                    .child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(temp)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            mProgressDialog.dismiss();
+                                            Toast.makeText(getApplicationContext(), "Deleted succesfully!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(EditTripsActivity.this, MainActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

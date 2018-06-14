@@ -17,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.sutot.buddieswithyourtravel.Controllers.Main.CommentsActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity.CommentsActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.Profile.ProfileActivity;
+import com.example.sutot.buddieswithyourtravel.Controllers.Main.SearchActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.TripsActivity.DetailedTripActivity;
 import com.example.sutot.buddieswithyourtravel.Controllers.Main.MainActivity;
 import com.example.sutot.buddieswithyourtravel.Models.Trips;
@@ -40,10 +42,10 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
+public class HomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
     private RecyclerView mMainRecyclerView;
-    private DatabaseReference refTrips, refLikes;
+    private DatabaseReference refTrips, refLikes, refLikesR;
     private MainActivity mMainActivity;
 
 
@@ -63,12 +65,15 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         //a foactivityhez hozzaferunk
-         mMainActivity = (MainActivity) getActivity();
+        mMainActivity = (MainActivity) getActivity();
 
         //beallitjuk a recyclerviewt
         mMainRecyclerView = (RecyclerView) view.findViewById(R.id.HomeFragment_Main_RecyclerView);
         mMainRecyclerView.setHasFixedSize(true);
-        mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        LinearLayoutManager newLinearLayoutManager = new LinearLayoutManager(getContext());
+        newLinearLayoutManager.setReverseLayout(true);
+        newLinearLayoutManager.setStackFromEnd(true);
+        mMainRecyclerView.setLayoutManager(newLinearLayoutManager);
 
         //a kirandulas tablat syncronizaljuk
         refTrips = FirebaseDatabase.getInstance().getReference();
@@ -77,14 +82,20 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         refLikes = FirebaseDatabase.getInstance().getReference().child("Likes");
         refLikes.keepSynced(true);
 
+        refLikesR = FirebaseDatabase.getInstance().getReference().child("LikesR");
+        refLikesR.keepSynced(true);
+
         mMainActivity.mTopLeft.setOnClickListener(this);
 
     }
 
     @Override
-    public void onClick(View view)
-    {
-        
+    public void onClick(View view) {
+        if (view == mMainActivity.mTopLeft) {
+            Intent searchTrip = new Intent(getContext(), SearchActivity.class);
+            searchTrip.putExtra("type", "trip");
+            startActivity(searchTrip);
+        }
     }
 
     @Override
@@ -94,10 +105,11 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                 (Trips.class, R.layout.card_view_trips, TripViewHolder.class, refTrips.child("Trips")) {
             //feltoltjuk a Recycler view-t
             @Override
-            protected void populateViewHolder(final TripViewHolder viewHolder, Trips model, int position) {
+            protected void populateViewHolder(final TripViewHolder viewHolder, final Trips model, int position) {
 
                 //megnevezzuk minden kirandulast, azaz megszerezzuk az idjukat
                 final String TripKey = getRef(position).getKey();
+                final String PersonKey = model.getOwnerID();
 
                 //beallitjuk a cimet es az erdeklodoinek a szamat
                 viewHolder.setTitle(model.getTitle());
@@ -113,7 +125,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                             viewHolder.setOwner(username);
                             viewHolder.setOwnerPicture(getContext(), filepath);
                         } catch (Exception e) {
-                            Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
                         }
                     }
 
@@ -159,9 +171,11 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                                 if (mMainActivity.LikeChecker.equals(true)) {
                                     if (dataSnapshot.child(TripKey).hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                                         refLikes.child(TripKey).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue();
+                                        refLikesR.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(TripKey).removeValue();
                                         mMainActivity.LikeChecker = false;
                                     } else {
                                         refLikes.child(TripKey).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(true);
+                                        refLikesR.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(TripKey).setValue(model);
                                         mMainActivity.LikeChecker = false;
                                     }
                                 }
@@ -174,7 +188,26 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                         });
                     }
                 });
+                if (!model.getOwnerID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    viewHolder.mOwner.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent profile = new Intent(getContext(), ProfileActivity.class);
+                            profile.putExtra("PersonKey", PersonKey);
+                            startActivity(profile);
+                        }
+                    });
 
+                    viewHolder.picView2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent profile = new Intent(getContext(), ProfileActivity.class);
+                            profile.putExtra("PersonKey", PersonKey);
+                            startActivity(profile);
+                        }
+                    });
+
+                }
             }
         };
         //racsatoljuk az adaptert a recycler viewre
@@ -184,8 +217,9 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     public static class TripViewHolder extends RecyclerView.ViewHolder {
         View mView;
 
+        ImageView picView2;
         ImageButton mLike, mComment;
-        TextView mLikeNumber;
+        TextView mLikeNumber, mOwner;
         int countLikes;
         String currUserID;
         DatabaseReference refLikes;
@@ -197,6 +231,8 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
             mLike = (ImageButton) mView.findViewById(R.id.Trip_Interested_Button);
             mLikeNumber = (TextView) mView.findViewById(R.id.Trip_Interested_Text);
             mComment = (ImageButton) mView.findViewById(R.id.Trip_Comments_Button);
+            picView2 = (ImageView) mView.findViewById(R.id.Trip_Owner_Profile_Pic);
+            mOwner = (TextView) mView.findViewById(R.id.Trip_Owner_User);
 
             currUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             refLikes = FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -215,9 +251,8 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         }
 
         public void setOwner(String ownerID) {
-            TextView postOwner = mView.findViewById(R.id.Trip_Owner_User);
-            postOwner.setTypeface(null, Typeface.BOLD);
-            postOwner.setText(ownerID);
+            mOwner.setTypeface(null, Typeface.BOLD);
+            mOwner.setText(ownerID);
         }
 
         public void setDescription(String shortDesc) {
@@ -288,19 +323,18 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         }
 
         public void setOwnerPicture(Context currentContext, String filepath) {
-            ImageView picView = (ImageView) itemView.findViewById(R.id.Trip_Owner_Profile_Pic);
             StorageReference pictureref;
             if (filepath == null) {
-                picView.setImageResource(R.drawable.no_profile_pic);
+                picView2.setImageResource(R.drawable.no_profile_pic);
             } else {
                 if (!filepath.isEmpty()) {
                     pictureref = FirebaseStorage.getInstance().getReferenceFromUrl(filepath);
                     Glide.with(currentContext)
                             .using(new FirebaseImageLoader())
                             .load(pictureref)
-                            .into(picView);
+                            .into(picView2);
                 } else {
-                    picView.setImageResource(R.drawable.no_profile_pic);
+                    picView2.setImageResource(R.drawable.no_profile_pic);
                 }
             }
 

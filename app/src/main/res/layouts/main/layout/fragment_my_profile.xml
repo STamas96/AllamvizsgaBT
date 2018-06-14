@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="trips"
+                            android:text="created trips"
                             android:textColor="#000000"
                             android:textSize="20dp"
                             android:textStyle="bold" />
